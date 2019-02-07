@@ -65,6 +65,19 @@ public class Object : MonoBehaviour
         //Get finger at index 1.
         Touch touch1 = Input.GetTouch(1);
 
+        // Step 2 The amount of touches has to be greater than or equal to 2.
+        if(Input.touchCount >= 2)
+        {
+            // Acquire the position of touch0.
+            Vector3 touchPosition0 = touch0.position;
+
+            // Acquire the position of touch1.
+            Vector3 touchPosition1 = touch1.position;
+
+
+
+        }
+
 
     }
 
