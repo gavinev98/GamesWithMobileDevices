@@ -10,12 +10,14 @@ public float perspectiveZoomSpeed = 0.5f;
 public float orthoZoomSpeed = 0.5f;
 private Camera cam;
 bool isTapped;
-
+bool isMoving;
+bool pinchtoZoom;
 // Use this for initialization
 void Start ()
 {
 	cam = GetComponent<Camera>();
-}
+   
+    }
 	
 // Update is called once per frame
 void Update () {
@@ -57,6 +59,12 @@ void Update () {
 		}
 	}
 
+        // If object has not been touched.
+         if(Input.touchCount != 1)
+         {
+            print("Please select the cube object");
+
+         }
 
 
 		// Detecting touches using phases for dragging / pinching rotating
@@ -70,56 +78,106 @@ void Update () {
 			{
 			//First phase is the began phase which is used for touching the object.
 				case TouchPhase.Began:
-					isTapped = true;
-					break;
+              //Setting isTapped to false becuase the tap can only be valid once finger is removed.
+					 isTapped = false;
+                     isMoving = false;
+                     pinchtoZoom = true;
+					 break;
             // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
-                isTapped = false;
-                break;
+                     isTapped = false;
+                     isMoving = true;
+                     pinchtoZoom = false;
+                     break;
             // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
-                isTapped = false;
-                break;
+                     isTapped = false;
+                     isMoving = false;
+                     pinchtoZoom = true;
+                     break;
             // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
-                isTapped = true;
-                break;
+                     isTapped = true;
+                     isMoving = false;
+                     pinchtoZoom = false;
+                     break;
 
 
 			}
 		}
 
         // Methods for if the object has been tapped
-            if (isTapped)
-            {
+        if (isTapped)
+        {
+            print("Is tapped");
             //Creating a camera object to identify the position of the touch
             Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
-
-                // Add colliders to  objects to ensure when hit do stuff#
-
-            //Creating a RaycastHit object which is used to retrieve information from the raycast.
+            //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
             RaycastHit hitInformation;
 
             if (Physics.Raycast(laser, out hitInformation))
-                {
+            {
 
                 // Obtain the script from the objects class and perform operations.
                 Object scriptofObj = hitInformation.collider.GetComponent<Object>();
 
                 // If the object has been tapped i want to be able to add an effect
                 scriptofObj.addTapEffect();
+            }
+        }
+
+        if (isMoving)
+        {
+            print("Is moving");
+            //Creating a camera object to identify the position of the touch
+            Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
+        
+            //Creating a RaycastHit object which is used to retrieve information from the raycast.
+            RaycastHit hitInformation;
+
+            if (Physics.Raycast(laser, out hitInformation))
+            {
+
+                // Obtain the script from the objects class and perform operations.
+                Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+
+                // If the object has been tapped i want to be able to add an effect
+                scriptofObj.dragObject();
+            }
+        }
+
+        if(pinchtoZoom)
+        {
+            print("Print to zoom");
+
+            //Creating a camera object to identify the position of the touch
+            Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
+            //Creating a RaycastHit object which is used to retrieve information from the raycast.
+            RaycastHit hitInformation;
+
+            if (Physics.Raycast(laser, out hitInformation))
+            {
+
+                // Obtain the script from the objects class and perform operations.
+                Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+
+                // If the object has been tapped i want to be able to add an effect
+                scriptofObj.pinchToZoom();
+            }
 
 
+        }
 
-                }
+    
         
                       
 
 
                         
                        
-            }
+            
 
 }
 		
