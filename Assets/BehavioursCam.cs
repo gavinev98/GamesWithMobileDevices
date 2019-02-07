@@ -1,6 +1,7 @@
 ﻿
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class BehavioursCam : MonoBehaviour {
 	public float perspectiveZoomSpeed = 0.5f;        
 	public float orthoZoomSpeed = 0.5f;
 	private Camera cam;
+	bool isTapped;
 
     // Use this for initialization
     void Start ()
@@ -55,6 +57,24 @@ public class BehavioursCam : MonoBehaviour {
 			    cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 0.1f, 179.9f);
 		    }
 	    }
+			// Detecting touches using phases for dragging / pinching rotating
+			if (Input.touchCount > 0)
+			{
+				//Acquiring the position of the finger
+				Touch touch = Input.GetTouch((0));
+				
+				//swithcing true the touch phases to check for movements.
+				switch (touch.phase)
+				{
+					//First phase is the began phase which is used for touching the object
+					case TouchPhase.Began:
+						isTapped = true;
+						break;
+					
+				
+				}
+			}
+
     }
 		
 

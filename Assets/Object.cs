@@ -28,7 +28,7 @@ public class Object : MonoBehaviour
             RaycastHit raycastHit;
             if (Physics.Raycast(raycast, out raycastHit))
             {
-                Debug.Log("Something Hit"); 
+                Debug.Log("Object Hit"); 
             }
         }
         
