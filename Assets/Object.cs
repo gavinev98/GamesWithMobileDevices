@@ -7,8 +7,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Object : MonoBehaviour
 {
-    
-   
+
+
 
 
     // Start is called before the first frame update
@@ -20,23 +20,24 @@ public class Object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        //Touching the game object.
-        if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
-        {
-            Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit raycastHit;
-            if (Physics.Raycast(raycast, out raycastHit))
-            {
-                Debug.Log("Object Hit"); 
-            }
-        }
-        
+
         // Accelerometer
-        transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
-        
+      //  transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
+
+    }
+
+    public void addTapEffect()
+    {
+        // Making the object/lcube bigger by 1 ontap
+
+        transform.localScale += new Vector3(0.1f, 0, 0);
+
+       // Adding color on tap of cube.
+        GetComponent<Renderer>().material.color = Color.magenta;
        
-        
+
+
+
 
 
     }

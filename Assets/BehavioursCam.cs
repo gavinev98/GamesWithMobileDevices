@@ -92,19 +92,23 @@ void Update () {
         // Methods for if the object has been tapped
             if (isTapped)
             {
-                //Creating a camera object to identify the position of the touch
-                Ray laserObject = Camera.main.ScreenPointToRay(Input.touches[0].position)
+            //Creating a camera object to identify the position of the touch
+            Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
 
                 // Add colliders to  objects to ensure when hit do stuff#
 
-                //Creating a RaycastHit object which is used to retrieve information from the raycast.
-                RaycastHit hitInformation;
-                       
-                if(Physics.Raycast(laserObject, out hitInformation):
+            //Creating a RaycastHit object which is used to retrieve information from the raycast.
+            RaycastHit hitInformation;
+
+            if (Physics.Raycast(laser, out hitInformation))
                 {
 
                 // Obtain the script from the objects class and perform operations.
                 Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+
+                // If the object has been tapped i want to be able to add an effect
+                scriptofObj.addTapEffect();
 
 
 
