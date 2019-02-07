@@ -1,7 +1,6 @@
 ﻿
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,19 +56,41 @@ public class BehavioursCam : MonoBehaviour {
 			    cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 0.1f, 179.9f);
 		    }
 	    }
+
+
+
 			// Detecting touches using phases for dragging / pinching rotating
 			if (Input.touchCount > 0)
 			{
-				//Acquiring the position of the finger
+				//Acquiring the position of the finger.
 				Touch touch = Input.GetTouch((0));
 				
 				//swithcing true the touch phases to check for movements.
 				switch (touch.phase)
 				{
-					//First phase is the began phase which is used for touching the object
+			    //First phase is the began phase which is used for touching the object.
 					case TouchPhase.Began:
 						isTapped = true;
 						break;
+                // The second phase of the TouchPhase is moving the object.
+                    case TouchPhase.Moved:
+                    isTapped = false;
+                    break;
+                // The third phase of the TouchPhase is stationary ie when the object is not moving.
+                    case TouchPhase.Stationary:
+                    isTapped = false;
+                    break;
+                // The final phase of the TouchPhase is the ended phase in which the object stops moving.
+                    case TouchPhase.Ended:
+                    isTapped = true;
+                    break;
+
+                
+                    
+
+
+                 
+
 					
 				
 				}
