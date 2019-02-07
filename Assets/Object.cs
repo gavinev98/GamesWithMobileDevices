@@ -58,6 +58,7 @@ public class Object : MonoBehaviour
         
     public void pinchToZoom()
     {
+        GetComponent<Renderer>().material.color = Color.red;
         //Step 1 Get users touch for both fingers,
 
         // Get finger at index 0.
@@ -69,10 +70,25 @@ public class Object : MonoBehaviour
         if(Input.touchCount >= 2)
         {
             // Acquire the position of touch0.
-            Vector3 touchPosition0 = touch0.position;
+            Vector3 touchPosition0 = touch0.position - touch0.deltaPosition;
 
             // Acquire the position of touch1.
-            Vector3 touchPosition1 = touch1.position;
+            Vector3 touchPosition1 = touch1.position - touch1.deltaPosition;
+
+            // Obtain distance between each of the touches.
+            float prevTouch = (touchPosition0 - touchPosition1).magnitude;
+            float touchdelta = (touch0.position - touch1.position).magnitude;
+
+
+            //Finding the differences between frames
+            float differenceFrames = prevTouch - touchdelta;
+
+            // Scaling the object
+            Vector3 upScaled = this.transform.localScale - new Vector3(differenceFrames, differenceFrames, differenceFrames);
+            this.transform.localScale = upScaled;
+
+
+
 
 
 
