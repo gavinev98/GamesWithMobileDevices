@@ -21,7 +21,7 @@ public class Object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+ 
         // Accelerometer
       //  transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
 
@@ -29,9 +29,6 @@ public class Object : MonoBehaviour
 
     public void addTapEffect()
     {
-        // Making the object/lcube bigger by 1 ontap
-
-        transform.localScale += new Vector3(0.1f, 0, 0);
 
        // Adding color on tap of cube.
         GetComponent<Renderer>().material.color = Color.magenta;
@@ -39,8 +36,7 @@ public class Object : MonoBehaviour
 
     public void dragObject()
     {
-
-      
+        
         //Changing color of cube to identify dragging movement.
         GetComponent<Renderer>().material.color = Color.blue;
 
@@ -48,13 +44,13 @@ public class Object : MonoBehaviour
         Touch touch = Input.GetTouch(0);
 
         // Steps 2 Check to see if they have actually touched the cube
-    
-            Vector3 positionofTouch = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 20));
+        
+        Vector3 mousePosition = new Vector3(touch.position.x, touch.position.y, 20);
+        Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        //Set position of the current object to the touch.
-           transform.position = Vector3.Lerp(transform.position, positionofTouch, Time.deltaTime);
+        transform.position = objPosition;
 
-        }
+    }
         
     public void pinchToZoom()
     {
@@ -86,16 +82,12 @@ public class Object : MonoBehaviour
             // Scaling the object
             Vector3 upScaled = this.transform.localScale - new Vector3(differenceFrames, differenceFrames, differenceFrames);
             this.transform.localScale = upScaled;
-
-
-
-
-
-
         }
 
 
     }
+
+  
 
 
 

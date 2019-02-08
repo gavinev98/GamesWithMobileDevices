@@ -13,17 +13,39 @@ public class BehavioursCam : MonoBehaviour
     bool isTapped;
     bool isMoving;
     bool pinchtoZoom;
+    bool isSelected;
+    bool cameraDragging;
+    static private Transform trSelect = null;
+    private bool selected = false;
+    GameObject cube;
+    GameObject sphere;
+    
+
+   
+
+
+
     // Use this for initialization
     void Start()
     {
         cam = GetComponent<Camera>();
+
+        cube = GameObject.FindWithTag("Cube"); 
+        sphere = GameObject.FindWithTag("Sphere");
 
     }
 
     // Update is called once per frame
     void Update()
     {
+       
 
+
+
+        if(selected && transform != trSelect) {
+            selected = false;
+
+        }
 
         // If object has not been touched.
         if (Input.touchCount != 1)
@@ -48,24 +70,28 @@ public class BehavioursCam : MonoBehaviour
                     isTapped = false;
                     isMoving = false;
                     pinchtoZoom = true;
+                    cameraDragging = true;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
                     isTapped = false;
                     isMoving = true;
                     pinchtoZoom = false;
+                    cameraDragging = true;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
                     isTapped = false;
                     isMoving = false;
                     pinchtoZoom = true;
+                    cameraDragging = true;
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
                     isTapped = true;
                     isMoving = false;
                     pinchtoZoom = false;
+                    cameraDragging = false;
                     break;
 
 
@@ -76,22 +102,42 @@ public class BehavioursCam : MonoBehaviour
         if (isTapped)
         {
             print("Is tapped");
-            //Creating a camera object to identify the position of the touch
-            Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
-            //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
-            RaycastHit hitInformation;
+                //Creating a camera object to identify the position of the touch
+                Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
+                //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
+                RaycastHit hitInformation;
 
             if (Physics.Raycast(laser, out hitInformation))
             {
+                if (cube && !sphere)
+                {
+                    
+                    selected = true;
+                    trSelect = transform;
+                    print("You have selected the cube");
+                    // Obtain the script from the objects class and perform operations.
+                    Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                    // If the object has been tapped i want to be able to add an effect
+                    scriptofObj.addTapEffect();
 
-                // Obtain the script from the objects class and perform operations.
-                Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                }
+                else if(sphere)
+                {
+                    
+                    selected = true;
+                    trSelect = transform;
+                    print("You have selected the Sphere");
+                    // Obtain the script from the objects class and perform operations.
+                    Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                    // If the object has been tapped i want to be able to add an effect
+                    scriptofObj.addTapEffect();
+                }
 
-                // If the object has been tapped i want to be able to add an effect
-                scriptofObj.addTapEffect();
             }
-        }
+
+            }
 
         if (isMoving)
         {
@@ -110,6 +156,10 @@ public class BehavioursCam : MonoBehaviour
 
                 // If the object has been tapped i want to be able to add an effect
                 scriptofObj.dragObject();
+            }
+            else
+            {
+                moveCamera();
             }
         }
 
@@ -135,6 +185,7 @@ public class BehavioursCam : MonoBehaviour
             else
             {
                 cameraZoom();
+              
             }
 
 
@@ -145,6 +196,7 @@ public class BehavioursCam : MonoBehaviour
 
     public void cameraZoom()
     {
+         cameraDragging = false;
         // If there are two touches on the device...
         if (Input.touchCount == 2)
         {
@@ -183,6 +235,26 @@ public class BehavioursCam : MonoBehaviour
         }
 
     }
+     public void moveCamera()
+        {
+
+        // variable to hold speed of camera
+        float speedOfcam = 0.1F;
+        //Steps ,1. Get the users touch 
+        Touch touch = Input.GetTouch(0);
+
+         if(Input.touchCount == 1)
+        {
+            Vector3 deltaPosition = touch.deltaPosition;
+
+            transform.Translate(-deltaPosition.x * speedOfcam, -deltaPosition.y * speedOfcam, 0);
+        }
+
+     
+    }
+
+
+
 }
 
 
