@@ -575,7 +575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747712877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.75, y: 1.43, z: -16.49}
+  m_LocalPosition: {x: -1.75, y: 4.4, z: -35.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -593,5 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0c7175879d77042af80c5b44c9922e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speedcamera: 0.125
+  offset: {x: 0, y: 0, z: 0}
   perspectiveZoomSpeed: 0.5
   orthoZoomSpeed: 0.5

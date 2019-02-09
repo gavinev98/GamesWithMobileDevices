@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class BehavioursCam : MonoBehaviour
 {
-
+    public Transform target;
+    public float speedcamera = 0.125f;
+    public Vector3 offset;
     public float perspectiveZoomSpeed = 0.5f;
     public float orthoZoomSpeed = 0.5f;
     private Camera cam;
@@ -14,15 +16,23 @@ public class BehavioursCam : MonoBehaviour
     bool isMoving;
     bool pinchtoZoom;
     bool isSelected;
-    bool cameraDragging;
     static private Transform trSelect = null;
     private bool selected = false;
     GameObject cube;
     GameObject sphere;
+    private Touch initTouch = new Touch();
+
+    private float rotationX = 0f;
+    private float rotationy = 0f;
+
+    //Original Roatation State for camera.
+    private Vector3 originalRot;
+
+    //Roatation speed of camera
+    public float rotationSpeed = 0.001f;
+
+    public float directionOFCamera = -1;
     
-
-   
-
 
 
     // Use this for initialization
@@ -33,16 +43,23 @@ public class BehavioursCam : MonoBehaviour
         cube = GameObject.FindWithTag("Cube"); 
         sphere = GameObject.FindWithTag("Sphere");
 
+        //initialize camera for all 3 rotations // all 3 xs.
+        originalRot = cam.transform.eulerAngles;
+
+        //take x and y value / store eurler angles in rotation x and y.
+        rotationX = originalRot.x;
+        rotationy = originalRot.y;
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        moveRotCamera();
 
-
-
-        if(selected && transform != trSelect) {
+        if (selected && transform != trSelect) {
             selected = false;
 
         }
@@ -70,28 +87,24 @@ public class BehavioursCam : MonoBehaviour
                     isTapped = false;
                     isMoving = false;
                     pinchtoZoom = true;
-                    cameraDragging = true;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
                     isTapped = false;
                     isMoving = true;
                     pinchtoZoom = false;
-                    cameraDragging = true;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
                     isTapped = false;
                     isMoving = false;
-                    pinchtoZoom = true;
-                    cameraDragging = true;
+                    pinchtoZoom = true;        
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
                     isTapped = true;
                     isMoving = false;
                     pinchtoZoom = false;
-                    cameraDragging = false;
                     break;
 
 
@@ -109,35 +122,34 @@ public class BehavioursCam : MonoBehaviour
                 //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
                 RaycastHit hitInformation;
 
-            if (Physics.Raycast(laser, out hitInformation))
-            {
-                if (cube && !sphere)
+                if (Physics.Raycast(laser, out hitInformation))
                 {
-                    
-                    selected = true;
-                    trSelect = transform;
-                    print("You have selected the cube");
-                    // Obtain the script from the objects class and perform operations.
-                    Object scriptofObj = hitInformation.collider.GetComponent<Object>();
-                    // If the object has been tapped i want to be able to add an effect
-                    scriptofObj.addTapEffect();
+                    if (cube && !sphere)
+                    {
 
-                }
-                else if(sphere)
-                {
-                    
-                    selected = true;
-                    trSelect = transform;
-                    print("You have selected the Sphere");
-                    // Obtain the script from the objects class and perform operations.
-                    Object scriptofObj = hitInformation.collider.GetComponent<Object>();
-                    // If the object has been tapped i want to be able to add an effect
-                    scriptofObj.addTapEffect();
-                }
+                        selected = true;
+                        trSelect = transform;
+                        print("You have selected the cube");
+                        // Obtain the script from the objects class and perform operations.
+                        Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                        // If the object has been tapped i want to be able to add an effect
+                        scriptofObj.addTapEffect();
+
+                    }
+                    else if (sphere)
+                    {
+
+                        selected = true;
+                        trSelect = transform;
+                        print("You have selected the Sphere");
+                        // Obtain the script from the objects class and perform operations.
+                        Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                        // If the object has been tapped i want to be able to add an effect
+                        scriptofObj.addTapEffect();
+                    }
 
             }
-
-            }
+        }
 
         if (isMoving)
         {
@@ -156,11 +168,7 @@ public class BehavioursCam : MonoBehaviour
 
                 // If the object has been tapped i want to be able to add an effect
                 scriptofObj.dragObject();
-            }
-            else
-            {
-                moveCamera();
-            }
+            } 
         }
 
         if (pinchtoZoom)
@@ -196,7 +204,7 @@ public class BehavioursCam : MonoBehaviour
 
     public void cameraZoom()
     {
-         cameraDragging = false;
+        
         // If there are two touches on the device...
         if (Input.touchCount == 2)
         {
@@ -235,23 +243,28 @@ public class BehavioursCam : MonoBehaviour
         }
 
     }
-     public void moveCamera()
+
+
+    public void moveRotCamera()
+    {
+        foreach(Touch touch in Input.touches)
         {
+            if(touch.phase == TouchPhase.Began)
+            {
+                initTouch = touch;
+            }
+            else if(touch.phase == TouchPhase.Moved)
+            {
+                //calculate postition that camera is going to with delta position. Use began position.
+                //first position
+                float deltaXPosition = initTouch.position.x - touch.position.x;
+                //y value current position minus the starting position
+                float deltaYPosition = initTouch.position.y - touch.position.y;
 
-        // variable to hold speed of camera
-        float speedOfcam = 0.1F;
-        //Steps ,1. Get the users touch 
-        Touch touch = Input.GetTouch(0);
-
-         if(Input.touchCount == 1)
-        {
-            Vector3 deltaPosition = touch.deltaPosition;
-
-            transform.Translate(-deltaPosition.x * speedOfcam, -deltaPosition.y * speedOfcam, 0);
         }
-
-     
     }
+
+
 
 
 
