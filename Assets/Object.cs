@@ -8,7 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class Object : MonoBehaviour
 {
 
-
+    private float rotationRate = 3.0f;
 
 
     // Start is called before the first frame update
@@ -21,23 +21,23 @@ public class Object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
- 
+
+
         // Accelerometer
-       // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
+        // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
 
     }
 
     public void addTapEffect()
     {
 
-       // Adding color on tap of cube.
+        // Adding color on tap of cube.
         GetComponent<Renderer>().material.color = Color.magenta;
     }
 
     public void dragObject()
     {
-        
+
         //Changing color of cube to identify dragging movement.
         GetComponent<Renderer>().material.color = Color.blue;
 
@@ -45,14 +45,14 @@ public class Object : MonoBehaviour
         Touch touch = Input.GetTouch(0);
 
         // Steps 2 Check to see if they have actually touched the cube
-        
+
         Vector3 mousePosition = new Vector3(touch.position.x, touch.position.y, 20);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
         transform.position = objPosition;
 
     }
-        
+
     public void pinchToZoom()
     {
         GetComponent<Renderer>().material.color = Color.red;
@@ -64,7 +64,7 @@ public class Object : MonoBehaviour
         Touch touch1 = Input.GetTouch(1);
 
         // Step 2 The amount of touches has to be greater than or equal to 2.
-        if(Input.touchCount >= 2)
+        if (Input.touchCount >= 2)
         {
             // Acquire the position of touch0.
             Vector3 touchPosition0 = touch0.position - touch0.deltaPosition;
@@ -88,14 +88,39 @@ public class Object : MonoBehaviour
 
     }
 
-
+    public void rotate()
+    {
+        foreach (Touch touch in Input.touches)
+        {
    
+          
+            Debug.Log("Touching at: " + touch.position);
 
-        
-    
+            if (touch.phase == TouchPhase.Began)
+            {
+                Debug.Log("Touch phase began at: " + touch.position);
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                Debug.Log("Touch phase Moved");
+                transform.Rotate(touch.deltaPosition.y * rotationRate,
+                                 -touch.deltaPosition.x * rotationRate, 0, Space.World);
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                Debug.Log("Touch phase Ended");
+            }
+        }
 
-  
 
 
 
+
+
+
+
+
+
+
+    }
 }

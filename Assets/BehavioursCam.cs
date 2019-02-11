@@ -16,11 +16,13 @@ public class BehavioursCam : MonoBehaviour
     bool isMoving;
     bool pinchtoZoom;
     bool isSelected;
+    bool isRotating;
     static private Transform trSelect = null;
     private bool selected = false;
     GameObject cube;
     GameObject sphere;
     private Touch initTouch = new Touch();
+
 
     private float rotationX = 0f;
     private float rotationy = 0f;
@@ -32,15 +34,22 @@ public class BehavioursCam : MonoBehaviour
     public float rotationSpeed = 0.001f;
 
     public float directionOFCamera = -1;
-    
+
+
+  
+
 
 
     // Use this for initialization
     void Start()
     {
+
+     
+
+
         cam = GetComponent<Camera>();
 
-        cube = GameObject.FindWithTag("Cube"); 
+        cube = GameObject.FindWithTag("Cube");
         sphere = GameObject.FindWithTag("Sphere");
 
         //initialize camera for all 3 rotations // all 3 xs.
@@ -52,6 +61,8 @@ public class BehavioursCam : MonoBehaviour
 
 
 
+
+
     }
 
     // Update is called once per frame
@@ -59,7 +70,8 @@ public class BehavioursCam : MonoBehaviour
     {
         moveRotCamera();
 
-        if (selected && transform != trSelect) {
+        if (selected && transform != trSelect)
+        {
             selected = false;
 
         }
@@ -86,25 +98,30 @@ public class BehavioursCam : MonoBehaviour
                     //Setting isTapped to false becuase the tap can only be valid once finger is removed.
                     isTapped = false;
                     isMoving = false;
-                    pinchtoZoom = true;
+                    isRotating = false;
+                    pinchtoZoom = false;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
                     isTapped = false;
                     isMoving = true;
+                    isRotating = true;
                     pinchtoZoom = false;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
                     isTapped = false;
                     isMoving = false;
-                    pinchtoZoom = true;        
+                    isRotating = false;
+                    pinchtoZoom = true;
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
                     isTapped = true;
                     isMoving = false;
+                    isRotating = true;
                     pinchtoZoom = false;
+                   
                     break;
 
 
@@ -116,37 +133,37 @@ public class BehavioursCam : MonoBehaviour
         {
             print("Is tapped");
 
-                //Creating a camera object to identify the position of the touch
-                Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
+            //Creating a camera object to identify the position of the touch
+            Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
-                //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
-                RaycastHit hitInformation;
+            //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
+            RaycastHit hitInformation;
 
-                if (Physics.Raycast(laser, out hitInformation))
+            if (Physics.Raycast(laser, out hitInformation))
+            {
+                if (cube && !sphere)
                 {
-                    if (cube && !sphere)
-                    {
 
-                        selected = true;
-                        trSelect = transform;
-                        print("You have selected the cube");
-                        // Obtain the script from the objects class and perform operations.
-                        Object scriptofObj = hitInformation.collider.GetComponent<Object>();
-                        // If the object has been tapped i want to be able to add an effect
-                        scriptofObj.addTapEffect();
+                    selected = true;
+                    trSelect = transform;
+                    print("You have selected the cube");
+                    // Obtain the script from the objects class and perform operations.
+                    Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                    // If the object has been tapped i want to be able to add an effect
+                    scriptofObj.addTapEffect();
 
-                    }
-                    else if (sphere)
-                    {
+                }
+                else if (sphere)
+                {
 
-                        selected = true;
-                        trSelect = transform;
-                        print("You have selected the Sphere");
-                        // Obtain the script from the objects class and perform operations.
-                        Object scriptofObj = hitInformation.collider.GetComponent<Object>();
-                        // If the object has been tapped i want to be able to add an effect
-                        scriptofObj.addTapEffect();
-                    }
+                    selected = true;
+                    trSelect = transform;
+                    print("You have selected the Sphere");
+                    // Obtain the script from the objects class and perform operations.
+                    Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+                    // If the object has been tapped i want to be able to add an effect
+                    scriptofObj.addTapEffect();
+                }
 
             }
         }
@@ -168,7 +185,7 @@ public class BehavioursCam : MonoBehaviour
 
                 // If the object has been tapped i want to be able to add an effect
                 scriptofObj.dragObject();
-            } 
+            }
         }
 
         if (pinchtoZoom)
@@ -193,18 +210,34 @@ public class BehavioursCam : MonoBehaviour
             else
             {
                 cameraZoom();
-              
+
             }
 
+        }
+        if (isRotating)
+        {
+            //Creating a camera object to identify the position of the touch
+            Ray laser = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
+            //Creating a RaycastHit object which is used to retrieve information from the raycast.
+            RaycastHit hitInformation;
+
+            if (Physics.Raycast(laser, out hitInformation))
+            {
+
+                // Obtain the script from the objects class and perform operations.
+                Object scriptofObj = hitInformation.collider.GetComponent<Object>();
+
+                // If the object has been tapped i want to be able to add an effect
+                scriptofObj.rotate();
+            }
 
         }
-
-
     }
 
     public void cameraZoom()
     {
-        
+
         // If there are two touches on the device...
         if (Input.touchCount == 2)
         {
@@ -247,33 +280,34 @@ public class BehavioursCam : MonoBehaviour
 
     public void moveRotCamera()
     {
-        foreach(Touch touch in Input.touches)
+        foreach (Touch touch in Input.touches)
         {
-            if(touch.phase == TouchPhase.Began)
-            {
-                initTouch = touch;
-            }
-            else if(touch.phase == TouchPhase.Moved)
+
+            if (Input.touchCount >= 2 && (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(1).phase == TouchPhase.Moved))
             {
                 //calculate postition that camera is going to with delta position. Use began position.
                 //first position
                 float deltaXPosition = initTouch.position.x - touch.position.x;
                 //y value current position minus the starting position
                 float deltaYPosition = initTouch.position.y - touch.position.y;
+                rotationX -= deltaYPosition * Time.deltaTime * rotationSpeed * directionOFCamera;
+                rotationy += deltaXPosition * Time.deltaTime * rotationSpeed * directionOFCamera;
+                cam.transform.eulerAngles = new Vector3(rotationX, rotationy, 0f);
 
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+                initTouch = new Touch();
+            }
         }
     }
 
-
-
-
-
+    public void rotateObj()
+    {
+       
+        
+    }
 }
-
-
-
-
-
 
     
 
