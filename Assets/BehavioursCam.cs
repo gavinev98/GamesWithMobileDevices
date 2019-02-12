@@ -16,6 +16,7 @@ public class BehavioursCam : MonoBehaviour
     bool isMoving;
     bool rotateObject;
     bool pinchtoZoom;
+    bool isJumping;
     private bool isSelected = false;
     bool rotateCamera;
     static private Transform trSelect = null;
@@ -82,6 +83,7 @@ public class BehavioursCam : MonoBehaviour
                     pinchtoZoom = true;
                     rotateCamera = false;
                     rotateObject = false;
+                    isJumping = false;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
@@ -90,6 +92,7 @@ public class BehavioursCam : MonoBehaviour
                     pinchtoZoom = false;
                     rotateCamera = true;
                     rotateObject = true;
+                    isJumping = false;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
@@ -98,6 +101,7 @@ public class BehavioursCam : MonoBehaviour
                     pinchtoZoom = true;
                     rotateCamera = false;
                     rotateObject = false;
+                    isJumping = false;
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
@@ -106,6 +110,7 @@ public class BehavioursCam : MonoBehaviour
                     pinchtoZoom = false;
                     rotateCamera = false;
                     rotateObject = false;
+                    isJumping = true;
                     break;
 
 
@@ -143,10 +148,14 @@ public class BehavioursCam : MonoBehaviour
                     {
                         ob.pinchToZoom();
                     }
-                    if (rotateObject)
+                    if (Input.touchCount >= 2 && rotateObject)
                     {
                         ob.rotate();
                     }
+                    if(isJumping)
+                {
+                    ob.Jump();
+                }
 
                 }
 
@@ -174,8 +183,7 @@ public class BehavioursCam : MonoBehaviour
     {
 
         // If there are two touches on the device...
-        if (Input.touchCount == 2 && (Input.GetTouch(0).phase == TouchPhase.Stationary &&
-                                      Input.GetTouch(1).phase == TouchPhase.Moved))
+        if (Input.touchCount == 2 && (Input.GetTouch(1).phase == TouchPhase.Moved))
         {
             // Store both touches.
             Touch touchZero = Input.GetTouch(0);

@@ -9,13 +9,19 @@ public class Object : MonoBehaviour
 {
 
     private float rotationRate = 3.0f;
+    private float jumpingForce = 500f;
+
+    //Rigidbody for jumping
+    private Rigidbody jumping;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //Changing color of cube to identify dragging movement.
-        GetComponent<Renderer>().material.color = Color.black;
+
+        //Getting the RigidBody Component
+        jumping = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -98,15 +104,8 @@ public class Object : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-   
-          
-            Debug.Log("Touching at: " + touch.position);
 
-            if (touch.phase == TouchPhase.Began)
-            {
-                Debug.Log("Touch phase began at: " + touch.position);
-            }
-            else if (touch.phase == TouchPhase.Moved)
+            if (touch.phase == TouchPhase.Moved)
             {
                 Debug.Log("Touch phase Moved");
                 transform.Rotate(touch.deltaPosition.y * rotationRate,
@@ -117,16 +116,12 @@ public class Object : MonoBehaviour
                 Debug.Log("Touch phase Ended");
             }
         }
+    
+    }
 
-
-
-
-
-
-
-
-
-
-
+    public void Jump()
+    {
+        // add force to the specific object using rigid body
+        jumping.AddForce(new Vector3(0f, jumpingForce), ForceMode.Force);
     }
 }
