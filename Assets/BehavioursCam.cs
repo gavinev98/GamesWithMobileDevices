@@ -14,6 +14,7 @@ public class BehavioursCam : MonoBehaviour
     private Camera cam;
     bool isTapped;
     bool isMoving;
+    bool rotateObject;
     bool pinchtoZoom;
     private bool isSelected = false;
     bool rotateCamera;
@@ -44,8 +45,8 @@ public class BehavioursCam : MonoBehaviour
     {
         cam = GetComponent<Camera>();
 
-        cube = GameObject.FindWithTag("Cube");
-        sphere = GameObject.FindWithTag("Sphere");
+        //Setting start color of all objects
+        
 
 
 
@@ -80,6 +81,7 @@ public class BehavioursCam : MonoBehaviour
                     isMoving = false;
                     pinchtoZoom = true;
                     rotateCamera = false;
+                    rotateObject = false;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
@@ -87,6 +89,7 @@ public class BehavioursCam : MonoBehaviour
                     isMoving = true;
                     pinchtoZoom = false;
                     rotateCamera = true;
+                    rotateObject = true;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
@@ -94,6 +97,7 @@ public class BehavioursCam : MonoBehaviour
                     isMoving = false;
                     pinchtoZoom = true;
                     rotateCamera = false;
+                    rotateObject = false;
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
@@ -101,13 +105,14 @@ public class BehavioursCam : MonoBehaviour
                     isMoving = false;
                     pinchtoZoom = false;
                     rotateCamera = false;
+                    rotateObject = false;
                     break;
 
 
             }
         }
 
-        
+       
             //Creating a camera object to identify the position of the touch
             Ray laser = cam.ScreenPointToRay(Input.touches[0].position);
 
@@ -121,25 +126,34 @@ public class BehavioursCam : MonoBehaviour
                 GameObject hitObject = hitInformation.transform.gameObject;
 
 
-            print("Object Tapped");
-                    SelectedObject(hitObject);
+                print("Object Tapped");
+                SelectedObject(hitObject);
 
-            if (selectedObject == true)
-            {
-                print("I am selected");
-
-                Object ob = selectedObject.GetComponent<Object>();
-                if (isMoving)
+                if (selectedObject == true)
                 {
-                    ob.dragObject();
+                    print("I am selected");
+
+                    Object ob = selectedObject.GetComponent<Object>();
+
+                    if (isMoving)
+                    {
+                        ob.dragObject();
+                    }
+                    if (pinchtoZoom)
+                    {
+                        ob.pinchToZoom();
+                    }
+                    if (rotateObject)
+                    {
+                        ob.rotate();
+                    }
+
                 }
 
 
-            }
-
-
+            
         }
-        
+
 
         else
         {
@@ -147,8 +161,9 @@ public class BehavioursCam : MonoBehaviour
             clear();
             //do camera stuff
             dragCamera();
+            cameraZoom();
             moveRotCamera();
-          
+
         }
         
 
@@ -207,9 +222,8 @@ public class BehavioursCam : MonoBehaviour
         foreach (Touch touch in Input.touches)
         {
             // needs 3 fingers one stationary , 2 moving.
-            if (Input.touchCount >= 3 &&
-                (Input.GetTouch(0).phase == TouchPhase.Stationary && Input.GetTouch(1).phase == TouchPhase.Moved ||
-                 Input.GetTouch(2).phase == TouchPhase.Moved))
+            if (Input.touchCount >= 2 &&
+                (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(1).phase == TouchPhase.Moved))
             {
 
                 //calculate postition that camera is going to with delta position. Use began position.
@@ -290,7 +304,7 @@ public class BehavioursCam : MonoBehaviour
         if (selectedObject == null)
             return;
         print("Cleared");
-        selectedObject.GetComponent<Renderer>().material.color = Color.black;
+        selectedObject.GetComponent<Renderer>().material.color = Color.white;
         selectedObject = null;
 
     }

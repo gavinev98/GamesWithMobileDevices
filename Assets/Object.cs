@@ -51,6 +51,7 @@ public class Object : MonoBehaviour
 
             transform.position = objPosition;
         }
+        
     }
 
     public void pinchToZoom()
@@ -84,8 +85,10 @@ public class Object : MonoBehaviour
             float differenceFrames = prevTouch - touchdelta;
 
             // Scaling the object
-            Vector3 upScaled = this.transform.localScale - new Vector3(differenceFrames, differenceFrames, differenceFrames);
+            Vector3 upScaled = this.transform.localScale - new Vector3(differenceFrames, differenceFrames, differenceFrames) * 0.005f;
             this.transform.localScale = upScaled;
+
+            
         }
 
 
