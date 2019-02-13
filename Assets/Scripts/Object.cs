@@ -9,7 +9,7 @@ public class Object : MonoBehaviour
 {
 
     private float rotationRate = 3.0f;
-    private float jumpingForce = 500f;
+    private float jumpingForce = 200f;
 
     //Rigidbody for jumping
     private Rigidbody jumping;
@@ -28,17 +28,15 @@ public class Object : MonoBehaviour
     void Update()
     {
 
-
         // Accelerometer
         // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
-
     }
 
-    public void addTapEffect()
+    public void selectedColor()
     {
 
         // Adding color on tap of cube.
-        GetComponent<Renderer>().material.color = Color.magenta;
+        GetComponent<Renderer>().material.color = Color.green;
     }
 
     public void dragObject()

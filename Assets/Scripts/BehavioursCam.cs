@@ -20,8 +20,6 @@ public class BehavioursCam : MonoBehaviour
     private bool isSelected = false;
     bool rotateCamera;
     static private Transform trSelect = null;
-    GameObject cube;
-    GameObject sphere;
 
     private Touch initTouch = new Touch();
 
@@ -47,16 +45,6 @@ public class BehavioursCam : MonoBehaviour
         cam = GetComponent<Camera>();
 
         //Setting start color of all objects
-        
-
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
         // If object has not been touched.
         if (Input.touchCount != 1)
@@ -66,10 +54,17 @@ public class BehavioursCam : MonoBehaviour
         }
 
 
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
         // Detecting touches using phases for dragging / pinching rotating
         if (Input.touchCount > 0)
         {
-            //Acquiring the position of the finger.
+            //Acquiring the position of the first finger.
             Touch touch = Input.GetTouch((0));
 
             //swithcing true the touch phases to check for movements.
@@ -130,20 +125,34 @@ public class BehavioursCam : MonoBehaviour
                 //Obtain the hit object
                 GameObject hitObject = hitInformation.transform.gameObject;
 
+                 //Acquire Touch
+                Touch touch0 = Input.GetTouch(0);
 
+                // Check if the touches length is greater than 0 and if finger has been lifted.
+            if (Input.touches.Length > 0 && touch0.phase == TouchPhase.Ended)
+            {
                 print("Object Tapped");
                 SelectedObject(hitObject);
+            }
+            
+
+                Touch toucb0 = Input.GetTouch(0);
 
                 if (selectedObject == true)
                 {
+                    
                     print("I am selected");
 
                     Object ob = selectedObject.GetComponent<Object>();
+
+                    //Change color to green if selected
+                    ob.selectedColor();
 
                     if (isMoving)
                     {
                         ob.dragObject();
                     }
+
                     if (pinchtoZoom)
                     {
                         ob.pinchToZoom();
@@ -153,29 +162,24 @@ public class BehavioursCam : MonoBehaviour
                         ob.rotate();
                     }
                     if(isJumping)
-                {
+                    {
                     ob.Jump();
-                }
+                    }
 
                 }
 
 
             
-        }
+            }
+            else
+            {
+                  clear();
+                 //do camera stuff
+                 dragCamera();
+                 cameraZoom();
+                 moveRotCamera();
 
-
-        else
-        {
-
-            clear();
-            //do camera stuff
-            dragCamera();
-            cameraZoom();
-            moveRotCamera();
-
-        }
-        
-
+            }
 
     }
 
@@ -275,13 +279,7 @@ public class BehavioursCam : MonoBehaviour
 
     }
 
-
-
-
-
-
-
-
+    //Selecting the object methods
 
     public void SelectedObject(GameObject obj)
     {
@@ -293,15 +291,12 @@ public class BehavioursCam : MonoBehaviour
             clear();
         }
 
-        Debug.Log("vdovmeriovewro");
+        Debug.Log("Testing/Working");
 
         selectedObject = obj;
         
             selectedObject.GetComponent<Renderer>().material.color = Color.green;
 
-            print("Working");
-
-           
             // Obtain the script from the objects class and perform operations.
  
 }
