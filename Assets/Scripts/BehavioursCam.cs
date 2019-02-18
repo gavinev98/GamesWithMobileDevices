@@ -20,6 +20,7 @@ public class BehavioursCam : MonoBehaviour
     private bool isSelected = false;
     bool rotateCamera;
     static private Transform trSelect = null;
+ 
 
     private Touch initTouch = new Touch();
 
@@ -72,7 +73,7 @@ public class BehavioursCam : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+   
         //enable the gyroscop in start frame
         gyroEnable = EnableGyro();
 
@@ -87,9 +88,7 @@ public class BehavioursCam : MonoBehaviour
 
         }
 
-        //Enabling the Acelerometer.
-        EnableAcelerometer();
-
+       
 
 
 
@@ -98,6 +97,8 @@ public class BehavioursCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+       
 
 
         //detecting the gyrascope
@@ -247,7 +248,7 @@ public class BehavioursCam : MonoBehaviour
 
         }
 
-
+     
 
 
     }
@@ -266,6 +267,11 @@ public class BehavioursCam : MonoBehaviour
         Debug.Log("No gyrascope found");
         return false;
 
+     }
+
+    public void Toggle_Changed(bool value)
+    {
+        
     }
 
 
@@ -400,12 +406,12 @@ public class BehavioursCam : MonoBehaviour
 
 
 
-    public void EnableAcelerometer()
+    public void randomColor()
     {
 
-        // Accelerometer checking if the finger is in the TouchPhase.Began stage.
+        Object ob = GetComponent<Object>();
 
-        transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
+        ob.transform.Rotate(Vector3.right * 10);
 
     }
 

@@ -39,7 +39,7 @@ public class Object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Input.acceleration.x * 0.05f, 0, -Input.acceleration.z * 0.05f);
+        
     }
 
     public void selectedColor()
@@ -132,6 +132,7 @@ public class Object : MonoBehaviour
         jumping.AddForce(new Vector3(0f, jumpingForce), ForceMode.Force);
     }
 
+    
 
 
 
@@ -141,5 +142,7 @@ public class Object : MonoBehaviour
 
 
 
-   
+
+
+
 }
