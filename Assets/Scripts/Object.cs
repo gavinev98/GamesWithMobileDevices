@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public class Object : MonoBehaviour
@@ -10,6 +11,17 @@ public class Object : MonoBehaviour
 
     private float rotationRate = 3.0f;
     private float jumpingForce = 200f;
+    const float minPinchDistance = 0;
+    const float pinchRatio = 1;
+    const float minTurnAngle = 0;
+    const float pinchTurnRatio = Mathf.PI / 2;
+
+
+    static public float differenceFrames;
+    static public float pinchDistance;
+    static public float turnAngle;
+    static public float turnAngleDelta;
+    
 
     //Rigidbody for jumping
     private Rigidbody jumping;
@@ -27,9 +39,7 @@ public class Object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // Accelerometer
-        // transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
+        transform.Translate(Input.acceleration.x * 0.05f, 0, -Input.acceleration.z * 0.05f);
     }
 
     public void selectedColor()
@@ -58,9 +68,8 @@ public class Object : MonoBehaviour
         
     }
 
-    public void pinchToZoom()
+    public void pinching()
     {
-       
         //Step 1 Get users touch for both fingers,
 
         // Get finger at index 0.
@@ -86,13 +95,13 @@ public class Object : MonoBehaviour
 
 
             //Finding the differences between frames
-            float differenceFrames = prevTouch - touchdelta;
+            float differenceFramess = prevTouch - touchdelta;
 
             // Scaling the object
-            Vector3 upScaled = this.transform.localScale - new Vector3(differenceFrames, differenceFrames, differenceFrames) * 0.005f;
+            Vector3 upScaled = this.transform.localScale - new Vector3(differenceFramess, differenceFramess, differenceFramess) * 0.005f;
             this.transform.localScale = upScaled;
 
-            
+
         }
 
 
@@ -122,4 +131,15 @@ public class Object : MonoBehaviour
         // add force to the specific object using rigid body
         jumping.AddForce(new Vector3(0f, jumpingForce), ForceMode.Force);
     }
+
+
+
+
+
+
+
+
+
+
+   
 }

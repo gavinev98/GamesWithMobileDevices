@@ -34,14 +34,48 @@ public class BehavioursCam : MonoBehaviour
 
     //Roatation speed of camera
     public float rotationSpeed = 0.5f;
-
     public float directionOFCamera = -1;
+
+    //Gyroscope enabled code.
+    private bool gyroEnable;
+    private Gyroscope gyro;
+
+
+    //Acceleromter
+    bool isAccelerometerEnabled;
+
+
+    const float pinchTurnRatio = Mathf.PI / 2;
+    const float minTurnAngle = 0;
+
+    const float pinchRatio = 1;
+    const float minPinchDistance = 0;
+
+    const float panRatio = 1;
+    const float minPanDistance = 0;
+
+  
+    // Implementing rotation for camera.
+
+    //   The delta of the angle between two touch points
+    static public float turnAngleDelta;
+    //   The angle between two touch points
+    static public float turnAngle;
+    //The delta of the distance between two touch points that were distancing from each other
+    static public float pinchDistanceDelta;
+
+    //The distance between two touch points that were distancing from each other
+    static public float pinchDistance;
 
 
 
     // Use this for initialization
     void Start()
     {
+
+        //enable the gyroscop in start frame
+        gyroEnable = EnableGyro();
+
         cam = GetComponent<Camera>();
 
         //Setting start color of all objects
@@ -53,6 +87,10 @@ public class BehavioursCam : MonoBehaviour
 
         }
 
+        //Enabling the Acelerometer.
+        EnableAcelerometer();
+
+
 
 
     }
@@ -60,6 +98,20 @@ public class BehavioursCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+        //detecting the gyrascope
+        //check to see if it is enabled
+        if (gyroEnable)
+        {
+            //Displaying statistics incase it isnnt working
+            Debug.Log("attitude" + gyro.attitude);
+            Debug.Log("gravity" + gyro.gravity);
+            Debug.Log("Acceleration" + gyro.userAcceleration);
+
+            //phone probably doesnt have gyrascope.
+
+        }
 
         // Detecting touches using phases for dragging / pinching rotating
         if (Input.touchCount > 0)
@@ -79,6 +131,7 @@ public class BehavioursCam : MonoBehaviour
                     rotateCamera = false;
                     rotateObject = false;
                     isJumping = false;
+                    isAccelerometerEnabled = false;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
@@ -88,6 +141,7 @@ public class BehavioursCam : MonoBehaviour
                     rotateCamera = true;
                     rotateObject = true;
                     isJumping = false;
+                    isAccelerometerEnabled = false;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
@@ -97,6 +151,7 @@ public class BehavioursCam : MonoBehaviour
                     rotateCamera = false;
                     rotateObject = false;
                     isJumping = false;
+                    isAccelerometerEnabled = false;
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
@@ -106,6 +161,7 @@ public class BehavioursCam : MonoBehaviour
                     rotateCamera = false;
                     rotateObject = false;
                     isJumping = true;
+                    isAccelerometerEnabled = true;
                     break;
 
 
@@ -148,23 +204,31 @@ public class BehavioursCam : MonoBehaviour
                     //Change color to green if selected
                     ob.selectedColor();
 
-                    if (isMoving)
+
+                if (isMoving)
                     {
+                        //Accessing object class and applying drag method to selected object.
                         ob.dragObject();
                     }
+               
+                 if (Input.touchCount >= 2 && rotateObject)
+                 {
+                //Accessing object class and applying rotate method to selected object.
+                      ob.rotate();
+                  }
 
-                    if (pinchtoZoom)
-                    {
-                        ob.pinchToZoom();
-                    }
-                    if (Input.touchCount >= 2 && rotateObject)
-                    {
-                        ob.rotate();
-                    }
+                if (pinchtoZoom)
+                     {
+
+                         ob.pinching();
+                     }
                     if(isJumping)
                     {
-                    ob.Jump();
+                        //Accessing object class and applying jump method to selected object.
+                         ob.Jump();
                     }
+                    
+
 
                 }
 
@@ -173,16 +237,71 @@ public class BehavioursCam : MonoBehaviour
             }
             else
             {
+                  //clearing the selected object.
                   clear();
                  //do camera stuff
                  dragCamera();
                  cameraZoom();
-                 moveRotCamera();
+                 rotateCameras();
+               //  moveRotCamera();
 
             }
 
+      
+
+
+    }
+    // Method to enable the gyrascope.
+    public bool EnableGyro()
+    {
+        //testing the gyroscope
+        if(SystemInfo.supportsGyroscope)
+        {
+            gyro = Input.gyro;
+            gyro.enabled = true;
+
+            return true;
+        }
+        //if gyro is not enabled return false.
+        Debug.Log("No gyrascope found");
+        return false;
+        
     }
 
+
+    //Selecting the object methods
+    public void SelectedObject(GameObject obj)
+    {
+        if (selectedObject != null)
+        {
+            if (obj == selectedObject)
+                return;
+
+            clear();
+        }
+
+        Debug.Log("Testing/Working");
+
+        selectedObject = obj;
+
+        selectedObject.GetComponent<Renderer>().material.color = Color.green;
+
+        // Obtain the script from the objects class and perform operations.
+
+    }
+        // Method to clear the selected object.
+    public void clear()
+    {
+
+        if (selectedObject == null)
+            return;
+        print("Cleared");
+        selectedObject.GetComponent<Renderer>().material.color = Color.white;
+        selectedObject = null;
+
+    }
+
+     // Method to zoom in with the camera.
     public void cameraZoom()
     {
 
@@ -225,7 +344,7 @@ public class BehavioursCam : MonoBehaviour
 
     }
 
-
+     // Method to rotate the camera.
     public void moveRotCamera()
     {
 
@@ -256,7 +375,7 @@ public class BehavioursCam : MonoBehaviour
                 cam.transform.eulerAngles = new Vector3(rotationX, rotationy, 0f);
             }
 
-            if (Input.GetTouch(1).phase == TouchPhase.Ended || Input.GetTouch(2).phase == TouchPhase.Ended)
+           else
             {
                 initTouch = new Touch();
             }
@@ -264,13 +383,13 @@ public class BehavioursCam : MonoBehaviour
         }
     }
 
-
+    // Method to drag camera with one finger
     public void dragCamera()
     {
         // Acquire the touch
         Touch touch = Input.GetTouch(0);
 
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && touch.phase == TouchPhase.Moved)
         {
             Vector3 deltaPosition = touch.deltaPosition;
 
@@ -279,38 +398,60 @@ public class BehavioursCam : MonoBehaviour
 
     }
 
-    //Selecting the object methods
 
-    public void SelectedObject(GameObject obj)
+
+    public void EnableAcelerometer()
     {
-        if (selectedObject != null)
-        {
-            if (obj == selectedObject)
-                return;
 
-            clear();
-        }
+        // Accelerometer checking if the finger is in the TouchPhase.Began stage.
 
-        Debug.Log("Testing/Working");
-
-        selectedObject = obj;
-        
-            selectedObject.GetComponent<Renderer>().material.color = Color.green;
-
-            // Obtain the script from the objects class and perform operations.
- 
-}
-
-    public void clear()
-    {
-        
-        if (selectedObject == null)
-            return;
-        print("Cleared");
-        selectedObject.GetComponent<Renderer>().material.color = Color.white;
-        selectedObject = null;
+        transform.Translate(Input.acceleration.x, 0, -Input.acceleration.z);
 
     }
 
 
-}
+    static public void CalculateCamRotation()
+    {
+        pinchDistance = pinchDistanceDelta = 0;
+        turnAngle = turnAngleDelta = 0;
+
+        // if two fingers are touching the screen at the same time ...
+        if (Input.touchCount == 2)
+        {
+            Touch touch1 = Input.touches[0];
+            Touch touch2 = Input.touches[1];
+
+            // ... if at least one of them moved ...
+            if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+            {
+                // ... check the delta distance between them ...
+                pinchDistance = Vector2.Distance(touch1.position, touch2.position);
+                float prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition,
+                                                      touch2.position - touch2.deltaPosition);
+                pinchDistanceDelta = pinchDistance - prevDistance;
+
+                // ... or check the delta angle between them ...
+                turnAngle = Angle(touch1.position, touch2.position);
+                float prevTurn = Angle(touch1.position - touch1.deltaPosition,
+                                       touch2.position - touch2.deltaPosition);
+                turnAngleDelta = Mathf.DeltaAngle(prevTurn, turnAngle);
+
+                // ... if it's greater than a minimum threshold, it's a turn!
+                if (Mathf.Abs(turnAngleDelta) > minTurnAngle)
+                {
+                    turnAngleDelta *= pinchTurnRatio;
+                }
+                else
+                {
+                    turnAngle = turnAngleDelta = 0;
+                }
+            }
+        }
+    }
+
+     private float Angle(Vector3 pos1, Vector3 pos2)
+    {
+
+
+
+    }
