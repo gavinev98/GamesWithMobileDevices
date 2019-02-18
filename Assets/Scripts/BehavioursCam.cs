@@ -54,7 +54,7 @@ public class BehavioursCam : MonoBehaviour
     const float panRatio = 1;
     const float minPanDistance = 0;
 
-  
+
     // Implementing rotation for camera.
 
     //   The delta of the angle between two touch points
@@ -98,7 +98,7 @@ public class BehavioursCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         //detecting the gyrascope
         //check to see if it is enabled
@@ -168,86 +168,86 @@ public class BehavioursCam : MonoBehaviour
             }
         }
 
-       
-            //Creating a camera object to identify the position of the touch
-            Ray laser = cam.ScreenPointToRay(Input.touches[0].position);
 
-            //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
-            RaycastHit hitInformation;
+        //Creating a camera object to identify the position of the touch
+        Ray laser = cam.ScreenPointToRay(Input.touches[0].position);
 
-            if (Physics.Raycast(laser, out hitInformation))
-            {
+        //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
+        RaycastHit hitInformation;
 
-                //Obtain the hit object
-                GameObject hitObject = hitInformation.transform.gameObject;
+        if (Physics.Raycast(laser, out hitInformation))
+        {
 
-                 //Acquire Touch
-                Touch touch0 = Input.GetTouch(0);
+            //Obtain the hit object
+            GameObject hitObject = hitInformation.transform.gameObject;
 
-                // Check if the touches length is greater than 0 and if finger has been lifted.
+            //Acquire Touch
+            Touch touch0 = Input.GetTouch(0);
+
+            // Check if the touches length is greater than 0 and if finger has been lifted.
             if (Input.touches.Length > 0 && touch0.phase == TouchPhase.Ended)
             {
                 print("Object Tapped");
                 SelectedObject(hitObject);
             }
-            
 
-                Touch toucb0 = Input.GetTouch(0);
 
-                if (selectedObject == true)
-                {
-                    
-                    print("I am selected");
+            Touch toucb0 = Input.GetTouch(0);
 
-                    Object ob = selectedObject.GetComponent<Object>();
+            if (selectedObject == true)
+            {
 
-                    //Change color to green if selected
-                    ob.selectedColor();
+                print("I am selected");
+
+                Object ob = selectedObject.GetComponent<Object>();
+
+                //Change color to green if selected
+                ob.selectedColor();
 
 
                 if (isMoving)
-                    {
-                        //Accessing object class and applying drag method to selected object.
-                        ob.dragObject();
-                    }
-               
-                 if (Input.touchCount >= 2 && rotateObject)
-                 {
-                //Accessing object class and applying rotate method to selected object.
-                      ob.rotate();
-                  }
+                {
+                    //Accessing object class and applying drag method to selected object.
+                    ob.dragObject();
+                }
+
+                if (Input.touchCount >= 2 && rotateObject)
+                {
+                    //Accessing object class and applying rotate method to selected object.
+                    ob.rotate();
+                }
 
                 if (pinchtoZoom)
-                     {
+                {
 
-                         ob.pinching();
-                     }
-                    if(isJumping)
-                    {
-                        //Accessing object class and applying jump method to selected object.
-                         ob.Jump();
-                    }
-                    
-
-
+                    ob.pinching();
+                }
+                if (isJumping)
+                {
+                    //Accessing object class and applying jump method to selected object.
+                    ob.Jump();
                 }
 
 
-            
-            }
-            else
-            {
-                  //clearing the selected object.
-                  clear();
-                 //do camera stuff
-                 dragCamera();
-                 cameraZoom();
-                 rotateCameras();
-               //  moveRotCamera();
 
             }
 
-      
+
+
+        }
+        else
+        {
+            //clearing the selected object.
+            clear();
+            //do camera stuff
+            dragCamera();
+            cameraZoom();
+            rotateCameras();
+            //  moveRotCamera();
+
+        }
+
+
 
 
     }
@@ -255,7 +255,7 @@ public class BehavioursCam : MonoBehaviour
     public bool EnableGyro()
     {
         //testing the gyroscope
-        if(SystemInfo.supportsGyroscope)
+        if (SystemInfo.supportsGyroscope)
         {
             gyro = Input.gyro;
             gyro.enabled = true;
@@ -265,7 +265,7 @@ public class BehavioursCam : MonoBehaviour
         //if gyro is not enabled return false.
         Debug.Log("No gyrascope found");
         return false;
-        
+
     }
 
 
@@ -289,7 +289,7 @@ public class BehavioursCam : MonoBehaviour
         // Obtain the script from the objects class and perform operations.
 
     }
-        // Method to clear the selected object.
+    // Method to clear the selected object.
     public void clear()
     {
 
@@ -301,7 +301,7 @@ public class BehavioursCam : MonoBehaviour
 
     }
 
-     // Method to zoom in with the camera.
+    // Method to zoom in with the camera.
     public void cameraZoom()
     {
 
@@ -344,7 +344,7 @@ public class BehavioursCam : MonoBehaviour
 
     }
 
-     // Method to rotate the camera.
+    // Method to rotate the camera.
     public void moveRotCamera()
     {
 
@@ -375,7 +375,7 @@ public class BehavioursCam : MonoBehaviour
                 cam.transform.eulerAngles = new Vector3(rotationX, rotationy, 0f);
             }
 
-           else
+            else
             {
                 initTouch = new Touch();
             }
@@ -449,9 +449,41 @@ public class BehavioursCam : MonoBehaviour
         }
     }
 
-     private float Angle(Vector3 pos1, Vector3 pos2)
+    static private float Angle(Vector3 pos1, Vector3 pos2)
     {
+        Vector3 from = pos2 - pos1;
+        Vector3 to = new Vector3(1, 0);
 
+        float result = Vector3.Angle(from, to);
+        Vector3 cross = Vector3.Cross(from, to);
+
+        if (cross.z > 0)
+        {
+            result = 360f - result;
+        }
+
+        return result;
 
 
     }
+
+    public void rotateCameras()
+    {
+        float pinchAmount = 0;
+        Quaternion desiredRotation = transform.rotation;
+
+        BehavioursCam.CalculateCamRotation();
+
+        if (Mathf.Abs(BehavioursCam.turnAngleDelta) > 0)
+        { // rotate
+            Vector3 rotationDeg = Vector3.zero;
+            rotationDeg.z = -BehavioursCam.turnAngleDelta;
+            desiredRotation *= Quaternion.Euler(rotationDeg);
+        }
+
+
+        // not so sure those will work:
+        transform.rotation = desiredRotation;
+        transform.position += Vector3.forward * pinchAmount;
+    }
+}
