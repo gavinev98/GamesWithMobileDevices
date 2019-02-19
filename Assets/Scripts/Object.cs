@@ -8,7 +8,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Object : MonoBehaviour
 {
-
+    
+    public GameObject remains;
     private float rotationRate = 3.0f;
     private float jumpingForce = 200f;
     const float minPinchDistance = 0;
@@ -21,7 +22,10 @@ public class Object : MonoBehaviour
     static public float pinchDistance;
     static public float turnAngle;
     static public float turnAngleDelta;
-    
+
+    //The delta of the distance between two touch points that were distancing from each other
+    static public float pinchDistanceDelta;
+
 
     //Rigidbody for jumping
     private Rigidbody jumping;
@@ -39,7 +43,10 @@ public class Object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        //Accelerometer for cubes
+        transform.Translate(Input.acceleration.x * 0.01f, 0, -Input.acceleration.z * 0.01f);
+
     }
 
     public void selectedColor()
@@ -132,7 +139,118 @@ public class Object : MonoBehaviour
         jumping.AddForce(new Vector3(0f, jumpingForce), ForceMode.Force);
     }
 
-    
+
+    static public void CalculateCamRotation()
+    {
+        pinchDistance = pinchDistanceDelta = 0;
+        turnAngle = turnAngleDelta = 0;
+
+        // if two fingers are touching the screen at the same time ...
+        if (Input.touchCount == 2)
+        {
+            Touch touch1 = Input.touches[0];
+            Touch touch2 = Input.touches[1];
+
+            // ... if at least one of them moved ...
+            if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+            {
+                // ... check the delta distance between them ...
+                pinchDistance = Vector2.Distance(touch1.position, touch2.position);
+                float prevDistance = Vector2.Distance(touch1.position - touch1.deltaPosition,
+                                                      touch2.position - touch2.deltaPosition);
+                pinchDistanceDelta = pinchDistance - prevDistance;
+
+                // ... or check the delta angle between them ...
+                turnAngle = Angle(touch1.position, touch2.position);
+                float prevTurn = Angle(touch1.position - touch1.deltaPosition,
+                                       touch2.position - touch2.deltaPosition);
+                turnAngleDelta = Mathf.DeltaAngle(prevTurn, turnAngle);
+
+                // ... if it's greater than a minimum threshold, it's a turn!
+                if (Mathf.Abs(turnAngleDelta) > minTurnAngle)
+                {
+                    turnAngleDelta *= pinchTurnRatio;
+                }
+                else
+                {
+                    turnAngle = turnAngleDelta = 0;
+                }
+            }
+        }
+    }
+
+    static private float Angle(Vector3 pos1, Vector3 pos2)
+    {
+        Vector3 from = pos2 - pos1;
+        Vector3 to = new Vector3(1, 0);
+
+        float result = Vector3.Angle(from, to);
+        Vector3 cross = Vector3.Cross(from, to);
+
+        if (cross.z > 0)
+        {
+            result = 360f - result;
+        }
+
+        return result;
+
+
+    }
+
+    public void rotateCameras()
+    {
+
+        Touch touch0 = Input.GetTouch(0);
+        Touch touch1 = Input.GetTouch(1);
+
+        if (touch1.phase == TouchPhase.Moved)
+        {
+            float pinchAmount = 0;
+            Quaternion desiredRotation = transform.rotation;
+
+
+
+            CalculateCamRotation();
+
+            if (Mathf.Abs(turnAngleDelta) > 0)
+            { // rotate
+                Vector3 rotationDeg = Vector3.zero;
+                rotationDeg.z = -turnAngleDelta;
+                desiredRotation *= Quaternion.Euler(rotationDeg);
+            }
+
+
+            // not so sure those will work:
+            transform.rotation = desiredRotation;
+            transform.position += Vector3.forward * pinchAmount;
+        }
+    }
+
+
+    // method to destroy cube into mini particles.
+    public void destroyCube(GameObject hitObject)
+    {
+        //Acquiring the first touch.
+        Touch touch0 = Input.GetTouch(0);
+        //Acqu
+        Touch touch1 = Input.GetTouch(1);
+
+        if(Input.touchCount > 0)
+        {
+            // Two fingers need to be in the began stage in order to activate the destroy.
+            if(touch0.phase == TouchPhase.Began && touch1.phase == TouchPhase.Began)
+            {
+
+                print("cube destroyed");
+                //Instantiating the gameobject  i attatched to the script.
+                Instantiate(remains, transform.position, transform.rotation);
+                //Destroying the currently selected object.
+                Destroy(hitObject);
+            }
+        }
+    }
+
+
 
 
 

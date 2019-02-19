@@ -17,10 +17,13 @@ public class BehavioursCam : MonoBehaviour
     bool rotateObject;
     bool pinchtoZoom;
     bool isJumping;
+    bool destroyCube;
     private bool isSelected = false;
     bool rotateCamera;
     static private Transform trSelect = null;
- 
+    public Vector3 OriginalPos;
+
+
 
     private Touch initTouch = new Touch();
 
@@ -73,7 +76,9 @@ public class BehavioursCam : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-   
+        //startposition of camera
+       
+
         //enable the gyroscop in start frame
         gyroEnable = EnableGyro();
 
@@ -130,9 +135,10 @@ public class BehavioursCam : MonoBehaviour
                     isMoving = false;
                     pinchtoZoom = true;
                     rotateCamera = false;
-                    rotateObject = false;
+                    rotateObject = true;
                     isJumping = false;
                     isAccelerometerEnabled = false;
+                    destroyCube = true;
                     break;
                 // The second phase of the TouchPhase is moving the object.
                 case TouchPhase.Moved:
@@ -143,6 +149,7 @@ public class BehavioursCam : MonoBehaviour
                     rotateObject = true;
                     isJumping = false;
                     isAccelerometerEnabled = false;
+                    destroyCube = false;
                     break;
                 // The third phase of the TouchPhase is stationary ie when the object is not moving.
                 case TouchPhase.Stationary:
@@ -150,9 +157,10 @@ public class BehavioursCam : MonoBehaviour
                     isMoving = false;
                     pinchtoZoom = true;
                     rotateCamera = false;
-                    rotateObject = false;
+                    rotateObject = true;
                     isJumping = false;
                     isAccelerometerEnabled = false;
+                    destroyCube = false;
                     break;
                 // The final phase of the TouchPhase is the ended phase in which the object stops moving.
                 case TouchPhase.Ended:
@@ -163,6 +171,7 @@ public class BehavioursCam : MonoBehaviour
                     rotateObject = false;
                     isJumping = true;
                     isAccelerometerEnabled = true;
+                    destroyCube = false;
                     break;
 
 
@@ -212,10 +221,10 @@ public class BehavioursCam : MonoBehaviour
                     ob.dragObject();
                 }
 
-                if (Input.touchCount >= 2 && rotateObject)
+                if (rotateObject)
                 {
                     //Accessing object class and applying rotate method to selected object.
-                    ob.rotate();
+                    ob.rotateCameras();
                 }
 
                 if (pinchtoZoom)
@@ -227,6 +236,10 @@ public class BehavioursCam : MonoBehaviour
                 {
                     //Accessing object class and applying jump method to selected object.
                     ob.Jump();
+                }
+                if(destroyCube)
+                {
+                    ob.destroyCube(selectedObject);
                 }
 
 
@@ -408,11 +421,9 @@ public class BehavioursCam : MonoBehaviour
 
     public void randomColor()
     {
-
-        Object ob = GetComponent<Object>();
-
-        ob.transform.Rotate(Vector3.right * 10);
-
+        print("Reset to starting position");
+        //Rest the camera position to the starting position.
+        
     }
 
 
