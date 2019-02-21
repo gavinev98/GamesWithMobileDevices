@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BehavioursCam : MonoBehaviour
@@ -419,10 +420,10 @@ public class BehavioursCam : MonoBehaviour
 
 
 
-    public void randomColor()
+    public void resetScene()
     {
         print("Reset to starting position");
-        //Rest the camera position to the starting position.
+       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }
 

@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d19fa4e-b3a1-4394-bf94-a3f2e6403404" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/BehavioursCam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BehavioursCam.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Updates.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Updates.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GamesWithMobileDevices/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GamesWithMobileDevices/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Updates.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Updates.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BehavioursCam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BehavioursCam.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,37 +14,60 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/BehavioursCam.cs">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/BehavioursCam.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="273" column="62" lean-forward="true" selection-start-line="273" selection-start-column="62" selection-end-line="273" selection-end-column="62" />
+            <state relative-caret-position="20">
+              <caret line="422" column="28" lean-forward="true" selection-start-line="422" selection-start-column="28" selection-end-line="422" selection-end-column="28" />
               <folding>
-                <marker date="1549975705798" expanded="false" signature="7:101" ph="..." />
-                <marker date="1549975705798" expanded="true" signature="145:8915" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="991:1144" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="1202:3907" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="1287:1360" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="1471:3101" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="1684:3091" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="3462:3751" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="3774:3898" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="3937:5822" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="4171:5815" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="5052:5416" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="5433:5805" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="5856:7568" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="5945:7562" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="6233:7373" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="6265:6384" ph="/* calculate postition that camera is going to with delta position. Use began position. ... */" />
-                <marker date="1549975705798" expanded="true" signature="7482:7551" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="7599:7896" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="7711:7889" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="7952:8673" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="7994:8099" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="8359:8663" ph="{...}" />
-                <marker date="1549975705798" expanded="true" signature="8698:8911" ph="{...}" />
+                <marker date="1550743155367" expanded="false" signature="7:136" ph="..." />
+                <marker date="1550743155367" expanded="true" signature="180:15246" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="1395:1489" ph="/* Implementing rotation for camera. ... */" />
+                <marker date="1550743155367" expanded="true" signature="1922:2306" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="2100:2180" ph="/* Setting start color of all objects ... */" />
+                <marker date="1550743155367" expanded="true" signature="2215:2288" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="2364:7422" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="2390:2455" ph="/* detecting the gyrascope ... */" />
+                <marker date="1550743155367" expanded="true" signature="2479:2776" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="2886:5212" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="3105:5202" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="5545:7164" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="5910:6021" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="6110:7151" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="6354:6517" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="6552:6720" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="6754:6826" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="6857:7014" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7046:7134" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7177:7407" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7490:7798" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7570:7680" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7842:7863" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7947:8327" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="7989:8094" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="8395:8600" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="8672:10467" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="8816:10460" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="9697:10061" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="10078:10450" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="10536:12088" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="10625:12082" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="10844:11984" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="10876:10995" ph="/* calculate postition that camera is going to with delta position. Use began position. ... */" />
+                <marker date="1550743155367" expanded="true" signature="12002:12071" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="12163:12495" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="12310:12488" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="12527:12660" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="12708:14304" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="12909:14298" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="13149:14288" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="14075:14165" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="14186:14274" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="14364:14658" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="14570:14626" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="14691:15244" ph="{...}" />
+                <marker date="1550743155367" expanded="true" signature="14890:15089" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -60,12 +84,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/BehavioursCam.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BehavioursCam.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/BehavioursCam.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BehavioursCam.cs" />
       </list>
     </option>
   </component>
@@ -75,29 +100,10 @@
     <option name="height" value="735" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="UnityExplorer" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="UnityExplorer">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Project" type="e068e287:UnityExplorerRootNode" />
-              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <option name="show-hidden-items" value="false" />
-        <option name="show-project-names" value="true" />
-      </pane>
-      <pane id="FileSystemExplorer" />
-      <pane id="SolutionExplorer">
-        <option name="show-all-files" value="false" />
-      </pane>
-      <pane id="AssemblyExplorer" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
@@ -141,11 +147,13 @@
       <option name="presentableId" value="Default" />
       <updated>1549968031552</updated>
       <workItem from="1549968059296" duration="7713000" />
+      <workItem from="1550741792828" duration="16000" />
+      <workItem from="1550742546163" duration="645000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7713000" />
+    <option name="totallyTimeSpent" value="8374000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -158,21 +166,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Capture Tool" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.5173979" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="NuGet" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Unity" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Unit Tests" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Performance Profiler" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -180,13 +180,22 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Errors In Solution" visible="true" weight="0.034039333" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Unit Tests Coverage" />
+      <window_info anchor="bottom" id="NuGet" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Performance Profiler" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Unity" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Unit Tests" order="13" />
+      <window_info anchor="bottom" id="Terminal" order="14" />
+      <window_info anchor="bottom" id="Event Log" order="15" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Errors In Solution" order="4" visible="true" weight="0.034039333" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="6" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,35 +214,59 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Assets/BehavioursCam.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/BehavioursCam.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/BehavioursCam.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="273" column="62" lean-forward="true" selection-start-line="273" selection-start-column="62" selection-end-line="273" selection-end-column="62" />
+        <state relative-caret-position="20">
+          <caret line="422" column="28" lean-forward="true" selection-start-line="422" selection-start-column="28" selection-end-line="422" selection-end-column="28" />
           <folding>
-            <marker date="1549975705798" expanded="false" signature="7:101" ph="..." />
-            <marker date="1549975705798" expanded="true" signature="145:8915" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="991:1144" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="1202:3907" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="1287:1360" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="1471:3101" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="1684:3091" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="3462:3751" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="3774:3898" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="3937:5822" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="4171:5815" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="5052:5416" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="5433:5805" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="5856:7568" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="5945:7562" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="6233:7373" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="6265:6384" ph="/* calculate postition that camera is going to with delta position. Use began position. ... */" />
-            <marker date="1549975705798" expanded="true" signature="7482:7551" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="7599:7896" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="7711:7889" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="7952:8673" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="7994:8099" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="8359:8663" ph="{...}" />
-            <marker date="1549975705798" expanded="true" signature="8698:8911" ph="{...}" />
+            <marker date="1550743155367" expanded="false" signature="7:136" ph="..." />
+            <marker date="1550743155367" expanded="true" signature="180:15246" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="1395:1489" ph="/* Implementing rotation for camera. ... */" />
+            <marker date="1550743155367" expanded="true" signature="1922:2306" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="2100:2180" ph="/* Setting start color of all objects ... */" />
+            <marker date="1550743155367" expanded="true" signature="2215:2288" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="2364:7422" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="2390:2455" ph="/* detecting the gyrascope ... */" />
+            <marker date="1550743155367" expanded="true" signature="2479:2776" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="2886:5212" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="3105:5202" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="5545:7164" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="5910:6021" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="6110:7151" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="6354:6517" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="6552:6720" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="6754:6826" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="6857:7014" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7046:7134" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7177:7407" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7490:7798" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7570:7680" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7842:7863" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7947:8327" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="7989:8094" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="8395:8600" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="8672:10467" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="8816:10460" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="9697:10061" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="10078:10450" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="10536:12088" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="10625:12082" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="10844:11984" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="10876:10995" ph="/* calculate postition that camera is going to with delta position. Use began position. ... */" />
+            <marker date="1550743155367" expanded="true" signature="12002:12071" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="12163:12495" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="12310:12488" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="12527:12660" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="12708:14304" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="12909:14298" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="13149:14288" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="14075:14165" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="14186:14274" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="14364:14658" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="14570:14626" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="14691:15244" ph="{...}" />
+            <marker date="1550743155367" expanded="true" signature="14890:15089" ph="{...}" />
           </folding>
         </state>
       </provider>
