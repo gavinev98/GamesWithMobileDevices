@@ -80,16 +80,18 @@ public class Object : MonoBehaviour
 
     public void pinching()
     {
-        //Step 1 Get users touch for both fingers,
+        
 
-        // Get finger at index 0.
-        Touch touch0 = Input.GetTouch(0);
-        //Get finger at index 1.
-        Touch touch1 = Input.GetTouch(1);
-
-        // Step 2 The amount of touches has to be greater than or equal to 2.
+        // Step 1 The amount of touches has to be greater than or equal to 2.
         if (Input.touchCount >= 2)
         {
+
+            //Step 2 Get users touch for both fingers,
+            // Get finger at index 0.
+            Touch touch0 = Input.GetTouch(0);
+            //Get finger at index 1.
+            Touch touch1 = Input.GetTouch(1);
+
 
 
             GetComponent<Renderer>().material.color = Color.red;
@@ -117,6 +119,7 @@ public class Object : MonoBehaviour
 
     }
 
+    /*
     public void rotate()
     {
         foreach (Touch touch in Input.touches)
@@ -125,16 +128,11 @@ public class Object : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 Debug.Log("Touch phase Moved");
-                transform.Rotate(touch.deltaPosition.y * rotationRate,
-                                 -touch.deltaPosition.x * rotationRate, 0, Space.World);
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                Debug.Log("Touch phase Ended");
-            }
+                transform.Rotate(touch.deltaPosition.y * rotationRate
         }
     
     }
+    */
 
     public void Jump()
     {
@@ -203,11 +201,12 @@ public class Object : MonoBehaviour
     public void rotateCameras()
     {
 
-        Touch touch0 = Input.GetTouch(0);
-        Touch touch1 = Input.GetTouch(1);
 
         if (Input.touchCount >= 2)
         {
+
+            Touch touch0 = Input.GetTouch(0);
+            Touch touch1 = Input.GetTouch(1);
 
             if (touch1.phase == TouchPhase.Moved)
             {
@@ -238,15 +237,16 @@ public class Object : MonoBehaviour
     // method to destroy cube into mini particles.
     public void destroyCube(GameObject hitObject)
     {
-        //Acquiring the first touch.
-        Touch touch0 = Input.GetTouch(0);
-        //Acqu
-        Touch touch1 = Input.GetTouch(1);
 
-        if(Input.touchCount > 0)
+        if(Input.touchCount >= 2)
         {
+            //Acquiring the first touch.
+            Touch touch0 = Input.GetTouch(0);
+            //Acqu
+            Touch touch1 = Input.GetTouch(1);
+
             // Two fingers need to be in the began stage in order to activate the destroy.
-            if(touch0.phase == TouchPhase.Began && touch1.phase == TouchPhase.Began)
+            if (touch0.phase == TouchPhase.Began && touch1.phase == TouchPhase.Began)
             {
 
                 print("cube destroyed");
