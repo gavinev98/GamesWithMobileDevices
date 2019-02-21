@@ -94,18 +94,13 @@ public class BehavioursCam : MonoBehaviour
 
         }
 
-       
-
-
+ 
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-
 
         //detecting the gyrascope
         //check to see if it is enabled
@@ -251,8 +246,6 @@ public class BehavioursCam : MonoBehaviour
 
                 }
 
-
-
             }
             else
             {
@@ -265,9 +258,6 @@ public class BehavioursCam : MonoBehaviour
                 //  moveRotCamera();
 
             }
-
-
-
 
         }
     }
@@ -370,44 +360,7 @@ public class BehavioursCam : MonoBehaviour
 
     }
 
-    // Method to rotate the camera.
-    public void moveRotCamera()
-    {
-
-        print("Rotating Camera");
-
-        foreach (Touch touch in Input.touches)
-        {
-            // needs 3 fingers one stationary , 2 moving.
-            if (Input.touchCount >= 2 &&
-                (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(1).phase == TouchPhase.Moved))
-            {
-
-                //calculate postition that camera is going to with delta position. Use began position.
-                //first position
-                float deltaXPosition = initTouch.position.x - touch.position.x;
-                //y value current position minus the starting position
-                float deltaYPosition = initTouch.position.y - touch.position.y;
-                //decrease from the current x position created at the start by deltaX.
-                rotationX -= deltaYPosition * Time.deltaTime * rotationSpeed * directionOFCamera;
-                //Add rotation speed
-                rotationy += deltaXPosition * Time.deltaTime * rotationSpeed * directionOFCamera;
-
-                // stop values from going over 80 degrees by clamping on the x axis.
-                rotationX = Mathf.Clamp(rotationX, -60f, 60f);
-                //stoping values from going over 80 degress on the y axis.
-                rotationy = Mathf.Clamp(rotationy, -60f, 60f);
-                //translation to camera using vector.
-                cam.transform.eulerAngles = new Vector3(rotationX, rotationy, 0f);
-            }
-
-            else
-            {
-                initTouch = new Touch();
-            }
-
-        }
-    }
+ 
 
     // Method to drag camera with one finger
     public void dragCamera()
@@ -506,7 +459,7 @@ public class BehavioursCam : MonoBehaviour
         }
 
 
-        // not so sure those will work:
+        
         transform.rotation = desiredRotation;
         transform.position += Vector3.forward * pinchAmount;
     }

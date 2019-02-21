@@ -52,7 +52,7 @@ public class Object : MonoBehaviour
     public void selectedColor()
     {
 
-        if (Input.touchCount >= 1)
+        if (Input.touchCount >= 0)
         {
             // Adding color on tap of cube.
             GetComponent<Renderer>().material.color = Color.green;
@@ -119,20 +119,6 @@ public class Object : MonoBehaviour
 
     }
 
-    /*
-    public void rotate()
-    {
-        foreach (Touch touch in Input.touches)
-        {
-
-            if (touch.phase == TouchPhase.Moved)
-            {
-                Debug.Log("Touch phase Moved");
-                transform.Rotate(touch.deltaPosition.y * rotationRate
-        }
-    
-    }
-    */
 
     public void Jump()
     {
@@ -226,7 +212,7 @@ public class Object : MonoBehaviour
                 }
 
 
-                // not so sure those will work:
+                
                 transform.rotation = desiredRotation;
                 transform.position += Vector3.forward * pinchAmount;
             }
