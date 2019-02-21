@@ -52,8 +52,11 @@ public class Object : MonoBehaviour
     public void selectedColor()
     {
 
-        // Adding color on tap of cube.
-        GetComponent<Renderer>().material.color = Color.green;
+        if (Input.touchCount >= 1)
+        {
+            // Adding color on tap of cube.
+            GetComponent<Renderer>().material.color = Color.green;
+        }
     }
 
     public void dragObject()
@@ -203,26 +206,31 @@ public class Object : MonoBehaviour
         Touch touch0 = Input.GetTouch(0);
         Touch touch1 = Input.GetTouch(1);
 
-        if (touch1.phase == TouchPhase.Moved)
+        if (Input.touchCount >= 2)
         {
-            float pinchAmount = 0;
-            Quaternion desiredRotation = transform.rotation;
+
+            if (touch1.phase == TouchPhase.Moved)
+            {
+                float pinchAmount = 0;
+                Quaternion desiredRotation = transform.rotation;
 
 
 
-            CalculateCamRotation();
+                CalculateCamRotation();
 
-            if (Mathf.Abs(turnAngleDelta) > 0)
-            { // rotate
-                Vector3 rotationDeg = Vector3.zero;
-                rotationDeg.z = -turnAngleDelta;
-                desiredRotation *= Quaternion.Euler(rotationDeg);
+                if (Mathf.Abs(turnAngleDelta) > 0)
+                {
+                    // rotate
+                    Vector3 rotationDeg = Vector3.zero;
+                    rotationDeg.z = -turnAngleDelta;
+                    desiredRotation *= Quaternion.Euler(rotationDeg);
+                }
+
+
+                // not so sure those will work:
+                transform.rotation = desiredRotation;
+                transform.position += Vector3.forward * pinchAmount;
             }
-
-
-            // not so sure those will work:
-            transform.rotation = desiredRotation;
-            transform.position += Vector3.forward * pinchAmount;
         }
     }
 

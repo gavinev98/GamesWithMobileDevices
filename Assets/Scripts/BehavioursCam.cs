@@ -83,7 +83,7 @@ public class BehavioursCam : MonoBehaviour
         //enable the gyroscop in start frame
         gyroEnable = EnableGyro();
 
-        cam = GetComponent<Camera>();
+        cam = this.GetComponent<Camera>();
 
         //Setting start color of all objects
 
@@ -104,7 +104,7 @@ public class BehavioursCam : MonoBehaviour
     void Update()
     {
 
-       
+
 
 
         //detecting the gyrascope
@@ -180,92 +180,98 @@ public class BehavioursCam : MonoBehaviour
         }
 
 
-        //Creating a camera object to identify the position of the touch
-        Ray laser = cam.ScreenPointToRay(Input.touches[0].position);
-
-        //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
-        RaycastHit hitInformation;
-
-        if (Physics.Raycast(laser, out hitInformation))
+        if (Input.touchCount > 0)
         {
+            //Creating a camera object to identify the position of the touch
+            Ray laser = cam.ScreenPointToRay(Input.touches[0].position);
 
-            //Obtain the hit object
-            GameObject hitObject = hitInformation.transform.gameObject;
+            //Creating a RaycastHit object which is used to retrieve infoormation from the raycast.
+            RaycastHit hitInformation;
 
-            //Acquire Touch
-            Touch touch0 = Input.GetTouch(0);
-
-            // Check if the touches length is greater than 0 and if finger has been lifted.
-            if (Input.touches.Length > 0 && touch0.phase == TouchPhase.Ended)
-            {
-                print("Object Tapped");
-                SelectedObject(hitObject);
-            }
-
-
-            Touch toucb0 = Input.GetTouch(0);
-
-            if (selectedObject == true)
+            if (Physics.Raycast(laser, out hitInformation))
             {
 
-                print("I am selected");
+                //Obtain the hit object
+                GameObject hitObject = hitInformation.transform.gameObject;
 
-                Object ob = selectedObject.GetComponent<Object>();
+                //Acquire Touch
+                Touch touch0 = Input.GetTouch(0);
 
-                //Change color to green if selected
-                ob.selectedColor();
-
-
-                if (isMoving)
+                // Check if the touches length is greater than 0 and if finger has been lifted.
+                if (Input.touches.Length > 0 && touch0.phase == TouchPhase.Ended)
                 {
-                    //Accessing object class and applying drag method to selected object.
-                    ob.dragObject();
+                    print("Object Tapped");
+                    SelectedObject(hitObject);
                 }
 
-                if (rotateObject)
-                {
-                    //Accessing object class and applying rotate method to selected object.
-                    ob.rotateCameras();
-                }
 
-                if (pinchtoZoom)
+                Touch toucb0 = Input.GetTouch(0);
+
+                if (selectedObject == true)
                 {
 
-                    ob.pinching();
-                }
-                if (isJumping)
-                {
-                    //Accessing object class and applying jump method to selected object.
-                    ob.Jump();
-                }
-                if(destroyCube)
-                {
-                    ob.destroyCube(selectedObject);
+                    print("I am selected");
+
+                    Object ob = selectedObject.GetComponent<Object>();
+
+                    //Change color to green if selected
+                    ob.selectedColor();
+
+
+                    if (isMoving)
+                    {
+                        //Accessing object class and applying drag method to selected object.
+                        ob.dragObject();
+                    }
+
+                    if (rotateObject)
+                    {
+                        //Accessing object class and applying rotate method to selected object.
+                        ob.rotateCameras();
+                    }
+
+                    if (pinchtoZoom)
+                    {
+
+                        ob.pinching();
+                    }
+
+                    if (isJumping)
+                    {
+                        //Accessing object class and applying jump method to selected object.
+                        ob.Jump();
+                    }
+
+                    if (destroyCube)
+                    {
+                        ob.destroyCube(selectedObject);
+                    }
+
+
+
                 }
 
 
 
             }
+            else
+            {
+                //clearing the selected object.
+                clear();
+                //do camera stuff
+                dragCamera();
+                cameraZoom();
+                rotateCameras();
+                //  moveRotCamera();
+
+            }
+
 
 
 
         }
-        else
-        {
-            //clearing the selected object.
-            clear();
-            //do camera stuff
-            dragCamera();
-            cameraZoom();
-            rotateCameras();
-            //  moveRotCamera();
-
-        }
-
-     
-
-
     }
+
     // Method to enable the gyrascope.
     public bool EnableGyro()
     {
