@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Cube
   - Sphere
+  - FallingCube
+  - platform
+  - Platform
+  - Water
+  - GameManager
   layers:
   - Default
   - TransparentFX

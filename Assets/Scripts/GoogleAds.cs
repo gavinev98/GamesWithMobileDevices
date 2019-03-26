@@ -19,15 +19,15 @@ public class GoogleAds : MonoBehaviour
     public void Start()
         {
     #if UNITY_ANDROID
-                string appId = "ca-app-pub-9018596307029717~6800607028";
-    #elif UNITY_IPHONE
-                string appId = "ca-app-pub-9018596307029717~6800607028";
-    #else
+                string appId = "ca-app-pub-4688391893464738~7826142993";
+#elif UNITY_IPHONE
+                string appId = "ca-app-pub-4688391893464738~7826142993";
+#else
             string appId = "unexpected_platform";
-    #endif
+#endif
 
-            // Initialize the Google Mobile Ads SDK.
-            MobileAds.Initialize(appId);
+        // Initialize the Google Mobile Ads SDK.
+        MobileAds.Initialize(appId);
 
             this.RequestBanner();
 
@@ -85,7 +85,7 @@ public class GoogleAds : MonoBehaviour
 
     
         // Create an empty ad request.  add a test device.
-            AdRequest request = new AdRequest.Builder().AddTestDevice(SystemInfo.deviceUniqueIdentifier).Build();
+            AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice(SystemInfo.deviceUniqueIdentifier).Build();
 
             // Load the banner with the request.
             bannerView.LoadAd(request);
@@ -94,13 +94,27 @@ public class GoogleAds : MonoBehaviour
 
         }
 
-        //Requesting interstitial ads.
-        private void RequestInterstitial()
+    public void showInterstitialAd()
+    {
+        if (this.interstitial != null)
+        {
+            if (this.interstitial.IsLoaded())
+                this.interstitial.Show();
+            Debug.Log("Showing interstitial advert!");
+        }
+        else
+        {
+            Debug.Log("The interstitial has not loaded sucessfully.");
+        }
+    }
+
+    //Requesting interstitial ads.
+    private void RequestInterstitial()
         {
 #if UNITY_ANDROID
             string adUnitId = "ca-app-pub-3940256099942544/1033173712";
 #elif UNITY_IPHONE
-            string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+            string adUnitId = "ca-app-pub-3940256099942544/1033173712";
 #else
         string adUnitId = "unexpected_platform";
     #endif
@@ -120,7 +134,7 @@ public class GoogleAds : MonoBehaviour
             this.interstitial.OnAdLeavingApplication += HandleOnAdLeavingApplication1;
 
         // Create an empty ad request.  add a test device.
-            AdRequest request = new AdRequest.Builder().AddTestDevice(SystemInfo.deviceUniqueIdentifier).Build();
+            AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice(SystemInfo.deviceUniqueIdentifier).Build();
         // Load the interstitial with the request.
         this.interstitial.LoadAd(request);
 
@@ -138,7 +152,7 @@ public class GoogleAds : MonoBehaviour
 #endif
 
         // Create an empty ad request. add a test device.
-        AdRequest request = new AdRequest.Builder().AddTestDevice(SystemInfo.deviceUniqueIdentifier).Build();
+        AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice(SystemInfo.deviceUniqueIdentifier).Build();
         // Load the rewarded video ad with the request.
         this.rewardBasedVideo.LoadAd(request, adUnitId);
     }
@@ -149,7 +163,9 @@ public class GoogleAds : MonoBehaviour
         if (this.rewardBasedVideo != null)
             if (this.rewardBasedVideo.IsLoaded())
             {
+                Debug.Log("Video is showing");
                 this.rewardBasedVideo.Show();
+                
             }
             else
             {
@@ -157,18 +173,7 @@ public class GoogleAds : MonoBehaviour
             }
     }
     
-      public void showInterstitialAd()
-         {
-        if (this.interstitial != null)
-        {
-            if (this.interstitial.IsLoaded())
-                this.interstitial.Show();
-        }
-        else
-        {
-            Debug.Log("The interstitial has not loaded sucessfully.");
-        }
-     }
+    
 
 
 
