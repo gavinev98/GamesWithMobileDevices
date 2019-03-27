@@ -66,7 +66,7 @@ public class FallingBlocks : MonoBehaviour
         spawnTime = Random.Range(0.5f, 2.0f);
 
         //spawn block
-        maxAmountofblocks = Random.Range(1, 10);
+        maxAmountofblocks = Random.Range(1, 2);
 
 
         //loop over and keep creating the falling blocks

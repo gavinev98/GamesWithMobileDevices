@@ -34,13 +34,13 @@ public class GoogleRewardVideo : MonoBehaviour
 
     void Update()
     {
-        CoinText.text = "Counter :" + Coin.ToString();
+        CoinText.text = "Coins :" + Coin.ToString();
     }
 
     public void HandlerOnRewarded(object sender,EventArgs args)
     {
         Coin += 100;
-        CollectReward.gameObject.SetActive(true);
+       // CollectReward.gameObject.SetActive(true);
 
     }
 

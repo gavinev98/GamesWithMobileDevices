@@ -33,6 +33,19 @@ public class UiFunctions : MonoBehaviour
     private int score0 = 0;
 
 
+    //give player coins.
+    public int coin;
+    public Text CoinText;
+    public Transform rewardedCoins;
+
+    //acquire the google interstitial
+    public GoogleInterstitial admobInterstitial;
+    //acquire the google rewarded video.
+    public GoogleRewardVideo rewardedVideo;
+    //show unity ad
+    public UnityAds showUnityVideo;
+
+
 
 
 
@@ -49,7 +62,7 @@ public class UiFunctions : MonoBehaviour
 
     void Update()
     {
-
+       
     }
 
     private void scoreUpdate()
@@ -89,7 +102,11 @@ public class UiFunctions : MonoBehaviour
         if (PlayerPrefs.GetInt("score") < score)
         {
             PlayerPrefs.SetInt("score", score); // highscore;
+
+            //If new highscore is set then show rewarded video and give user coins.
+            showRewardVideo();
         }
+   
         highScore.gameObject.SetActive(true);
         highScore.text = "High Score : " + PlayerPrefs.GetInt("score"); // setting high score.
         scoreCount.gameObject.SetActive(true);
@@ -100,6 +117,34 @@ public class UiFunctions : MonoBehaviour
         //tapToPlay.gameObject.SetActive(true);
         gamePlaying = false; 
         PlayerPrefs.Save();
+    }
+
+
+    //creating methods for showing google abmods interstitial and rewarded video
+    public void showRewardPopup()
+    {
+        rewardedCoins.gameObject.SetActive(true);
+    }
+
+    public void hideRewardPopup()
+    {
+        rewardedCoins.gameObject.SetActive(true);
+    }
+
+
+    public void showRewardVideo()
+    {
+        rewardedVideo.showAds();
+    }
+
+    public void showInterstitial()
+    {
+        admobInterstitial.showAds();
+    }
+
+    public void unityVideo()
+    {
+        showUnityVideo.showUnityAd();
     }
 
     #endregion
