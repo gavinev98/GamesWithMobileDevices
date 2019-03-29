@@ -115,7 +115,7 @@ public class UiFunctions : MonoBehaviour
 
     public void GameEnded()
     {
-        Debug.Log("Game Ended");
+      
         if (PlayerPrefs.GetInt("score") < score)
         {
             PlayerPrefs.SetInt("score", score); // highscore;

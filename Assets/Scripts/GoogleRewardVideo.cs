@@ -60,8 +60,18 @@ public class GoogleRewardVideo : MonoBehaviour
 
     }
 
-    public void destroyRewardPopUp()
+    public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
+        //show popup that the user has not fully watched not the so dont give coins.
+        CollectReward.gameObject.SetActive(true);
+        //destroy the popup
+        destroyRewardPopUp();
+    }
+
+    public IEnumerator destroyRewardPopUp()
+    {
+        //wait for 5 seconds then set the popup to inactive.
+        yield return new WaitForSeconds(5);
         CollectReward.gameObject.SetActive(false);
     }
 
