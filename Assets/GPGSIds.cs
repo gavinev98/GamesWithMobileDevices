@@ -24,8 +24,9 @@
 
 public static class GPGSIds
 {
-        public const string achievement_high_score = "CgkIoJT50-oaEAIQAg"; // <GPGSID>
         public const string leaderboard_cube_dodger_leaderboard = "CgkIoJT50-oaEAIQAQ"; // <GPGSID>
+        public const string achievement_dailyplayer = "CgkIoJT50-oaEAIQAw"; // <GPGSID>
+        public const string achievement_high_score = "CgkIoJT50-oaEAIQAg"; // <GPGSID>
 
 }
 

@@ -87,7 +87,8 @@ public class UiFunctions : MonoBehaviour
         tapToPlay.gameObject.SetActive(false);
         highScore.gameObject.SetActive(false);
         scoreCount.gameObject.SetActive(false);
-
+        //give achievement if play plays game
+        PlayServices.instance.UnlockAchievement(GPGSIds.achievement_dailyplayer);
         gamePlaying = true;
     }
 
