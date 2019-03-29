@@ -12,6 +12,9 @@ public class GoogleRewardVideo : MonoBehaviour
     public Text CoinText;
     public int Coin = 100;
     public Transform CollectReward;
+
+    //creating and instance of unity ads
+    public UnityAds showUnityAd;
     
 
     private RewardBasedVideoAd rewardBasedVideoAd;
@@ -48,6 +51,13 @@ public class GoogleRewardVideo : MonoBehaviour
     {
         Debug.Log("HandleRewardBasedVideoLoaded event received");
         
+    }
+
+    public void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        //if google admob reward video fails to load show unity video instead/ doesnt offer reward though.
+        showUnityAd.showUnityAd();
+
     }
 
     public void destroyRewardPopUp()

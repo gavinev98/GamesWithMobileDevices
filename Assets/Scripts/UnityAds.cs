@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //using GoogleMobileAds.Api;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 public class UnityAds : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class UnityAds : MonoBehaviour
     [SerializeField] private string bannerID = "ca-app-pub-9018596307029717/3372621615";
     [SerializeField] private string regularId = "ca-app-pub-9018596307029717/7594157403";
 
+    // variables for coin rewards.
+    public Text CoinText;
+    public int Coin = 100;
+    public Transform CollectReward;
 
 
     private void Start()
@@ -30,9 +35,11 @@ public class UnityAds : MonoBehaviour
 
         //unitybanner initialization will displayed after particular period of time.
       //  StartCoroutine(ShowBannerWhenReady());
+    }
 
-
-
+    public void Update()
+    {
+        CoinText.text = "Coins :" + Coin.ToString();
     }
 
     public void onClickShowBanner()
@@ -86,7 +93,8 @@ public class UnityAds : MonoBehaviour
         switch (result)
         {
             case ShowResult.Finished:
-                Debug.Log("Player has watched full ad");
+                //give the user 100 coins on sucessful watch of full ad.
+                Coin += 100;
                 break;
             case ShowResult.Skipped:
                 Debug.Log("Player has not watched full ad");

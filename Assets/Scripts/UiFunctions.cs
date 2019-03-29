@@ -57,6 +57,7 @@ public class UiFunctions : MonoBehaviour
         Debug.Log(PlayerPrefs.GetInt("score"));
         InvokeRepeating("scoreUpdate", 1.0f, 1.0f);
          restartButton.gameObject.SetActive(false);
+        StartCoroutine(showAdAfterSeconds());
 
     }
 
@@ -117,6 +118,15 @@ public class UiFunctions : MonoBehaviour
         //tapToPlay.gameObject.SetActive(true);
         gamePlaying = false; 
         PlayerPrefs.Save();
+    }
+
+
+   public IEnumerator showAdAfterSeconds()
+    {
+        //wait for 10 seconds
+        yield return new WaitForSeconds(10);
+        //show interstitial advert.
+        showInterstitial();
     }
 
 
