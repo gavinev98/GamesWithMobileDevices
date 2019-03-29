@@ -20,7 +20,7 @@ public class PlayServices : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Build().Build();
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
 
         PlayGamesPlatform.InitializeInstance(config);
         // recommended for debugging:
@@ -56,7 +56,8 @@ public class PlayServices : MonoBehaviour
 
     public void showAchievementUI()
     {
-     //show ui screen   
+        //show ui screen  
+        Social.ShowAchievementsUI();
     }
 
 
@@ -68,9 +69,15 @@ public class PlayServices : MonoBehaviour
         });
     }
 
+    public void showLeaderboard()
+    {
+        //show leaderboard;
+        Social.ShowLeaderboardUI();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 }

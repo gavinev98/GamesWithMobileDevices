@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using UnityEngine.SceneManagement;
 
 public class UiFunctions : MonoBehaviour
@@ -46,7 +48,7 @@ public class UiFunctions : MonoBehaviour
     public UnityAds showUnityVideo;
 
 
-
+    public static UiFunctions instance;
 
 
     #endregion
@@ -54,6 +56,8 @@ public class UiFunctions : MonoBehaviour
     #region UnityFunctions
     void Start()
     {
+        instance = this;
+        DontDestroyOnLoad(gameObject);
         Debug.Log(PlayerPrefs.GetInt("score"));
         InvokeRepeating("scoreUpdate", 1.0f, 1.0f);
          restartButton.gameObject.SetActive(false);
@@ -88,14 +92,14 @@ public class UiFunctions : MonoBehaviour
     }
 
 
-    public void achievements()
+    public void ShowAchievements()
     {
-
+        PlayServices.instance.showAchievementUI();
     }
     // leaderboards with scores
-    public void leaderboard()
-    { 
-
+    public void ShowLeaderboard()
+    {
+        PlayServices.instance.showLeaderboard();
     }
     //connect to facebook
     public void facebook()
@@ -120,6 +124,9 @@ public class UiFunctions : MonoBehaviour
         {
             PlayerPrefs.SetInt("score", score); // highscore;
 
+            //give achievement if score is highscore
+            PlayServices.instance.UnlockAchievement(GPGSIds.achievement_high_score);
+
             //If new highscore is set then show rewarded video and give user coins.
             showRewardVideo();
         }
@@ -134,6 +141,9 @@ public class UiFunctions : MonoBehaviour
         //tapToPlay.gameObject.SetActive(true);
         gamePlaying = false; 
         PlayerPrefs.Save();
+        
+        // add score to leaderboard when game ends.
+        PlayServices.instance.AddScoretoleaderboard(GPGSIds.leaderboard_cube_dodger_leaderboard, PlayerPrefs.GetInt("score"));
     }
 
 
