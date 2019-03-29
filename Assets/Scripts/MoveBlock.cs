@@ -36,7 +36,7 @@ public class MoveBlock : MonoBehaviour
     private void onMove()
     {
         //Accelerometer for cubes
-        transform.Translate(Input.acceleration.x * 0.08f, 0, -Input.acceleration.z * 0.00f);
+        transform.Translate(Input.acceleration.x * 1.5f, 0, -Input.acceleration.z * 0.00f);
 
     }
   

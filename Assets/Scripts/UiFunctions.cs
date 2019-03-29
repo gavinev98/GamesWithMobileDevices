@@ -87,8 +87,24 @@ public class UiFunctions : MonoBehaviour
         gamePlaying = true;
     }
 
+
+    public void achievements()
+    {
+
+    }
+    // leaderboards with scores
     public void leaderboard()
     { 
+
+    }
+    //connect to facebook
+    public void facebook()
+    {
+
+    }
+    //connect to twitter.
+    public void twitter()
+    {
 
     }
 
