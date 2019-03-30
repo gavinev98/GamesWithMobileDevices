@@ -14,5 +14,10 @@ required for displaying ads.
    <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4688391893464738~7826142993"/>
+	<provider
+			  android:name="com.yasirkula.unity.UnitySSContentProvider"
+			  android:authorities="UnityShare_12345"
+			  android:exported="false"
+			  android:grantUriPermissions="true" />
   </application>
 </manifest>

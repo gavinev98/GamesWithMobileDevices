@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class UiFunctions : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class UiFunctions : MonoBehaviour
     [SerializeField]
     private Button restartButton;
     [SerializeField]
+    private Button socialMediaButton;
+    [SerializeField]
+    private Text socialMediaCaption;
+    [SerializeField]
     private Text scoreCount;
     [SerializeField]
     private Text highScore;
@@ -46,6 +51,8 @@ public class UiFunctions : MonoBehaviour
     public GoogleRewardVideo rewardedVideo;
     //show unity ad
     public UnityAds showUnityVideo;
+
+
 
 
     public static UiFunctions instance;
@@ -87,6 +94,8 @@ public class UiFunctions : MonoBehaviour
         tapToPlay.gameObject.SetActive(false);
         highScore.gameObject.SetActive(false);
         scoreCount.gameObject.SetActive(false);
+        socialMediaButton.gameObject.SetActive(false);
+        socialMediaCaption.gameObject.SetActive(false);
         //give achievement if play plays game
         PlayServices.instance.UnlockAchievement(GPGSIds.achievement_dailyplayer);
         gamePlaying = true;
@@ -139,6 +148,8 @@ public class UiFunctions : MonoBehaviour
         scoreCounter.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(true);
         leaderboards.gameObject.SetActive(true);
+        socialMediaButton.gameObject.SetActive(true);
+        socialMediaCaption.gameObject.SetActive(true);
         //tapToPlay.gameObject.SetActive(true);
         gamePlaying = false; 
         PlayerPrefs.Save();
@@ -148,7 +159,30 @@ public class UiFunctions : MonoBehaviour
     }
 
 
-   public IEnumerator showAdAfterSeconds()
+    //sharing to social media.
+    public void clickShare()
+    {
+        StartCoroutine(TakeSSAndShare());
+    }
+
+    private IEnumerator TakeSSAndShare()
+    {
+        yield return new WaitForEndOfFrame();
+
+        Texture2D ss = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        ss.Apply();
+
+        string filePath = Path.Combine(Application.temporaryCachePath, "shared img.png");
+        File.WriteAllBytes(filePath, ss.EncodeToPNG());
+
+        // To avoid memory leaks
+        Destroy(ss);
+
+        new NativeShare().AddFile(filePath).SetSubject("CubeDodger").SetText("I scored a new highscore").Share();
+    }
+
+    public IEnumerator showAdAfterSeconds()
     {
         //wait for 10 seconds
         yield return new WaitForSeconds(10);
