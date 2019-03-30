@@ -31,6 +31,8 @@ public class UiFunctions : MonoBehaviour
     [SerializeField]
     private Button socialMediaButton;
     [SerializeField]
+    private GameObject shopShopMenu;
+    [SerializeField]
     private Text socialMediaCaption;
     [SerializeField]
     private Text scoreCount;
@@ -51,6 +53,17 @@ public class UiFunctions : MonoBehaviour
     public GoogleRewardVideo rewardedVideo;
     //show unity ad
     public UnityAds showUnityVideo;
+
+
+    // in app purchases
+    [SerializeField]
+    public Text goldamount;
+    [SerializeField]
+    public GameObject noAdvertisements;
+    private int gold = 0;
+    // boolean varaible to store no ads to false.
+    private bool noads = false;
+
 
 
 
@@ -111,16 +124,7 @@ public class UiFunctions : MonoBehaviour
     {
         PlayServices.instance.showLeaderboard();
     }
-    //connect to facebook
-    public void facebook()
-    {
 
-    }
-    //connect to twitter.
-    public void twitter()
-    {
-
-    }
 
     public void Restart()
     {
@@ -180,6 +184,30 @@ public class UiFunctions : MonoBehaviour
         Destroy(ss);
 
         new NativeShare().AddFile(filePath).SetSubject("CubeDodger").SetText("I scored a new highscore").Share();
+    }
+
+    //in app purchasing methods
+    public void AddCoins(int amount)
+    {
+        //assign gold varaible to coin text
+        gold += amount;
+
+    }
+
+    public void removeAds()
+    {
+        noads = true;
+        noAdvertisements.SetActive(false);
+    }
+
+    public void showShopUI()
+    {
+        shopShopMenu.gameObject.SetActive(true);
+    }
+
+    public void closeShopUI()
+    {
+        shopShopMenu.gameObject.SetActive(false);
     }
 
     public IEnumerator showAdAfterSeconds()
