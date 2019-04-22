@@ -11,9 +11,9 @@ public class AppPurchaseManger : Singleton<AppPurchaseManger>, IStoreListener
 
 
     // specific mapping to Unity Purchasing's AddProduct, below.
-    public  string GOLD_50 = "GOLD_50";
-    public  string GOLD_100 = "GOLD_100";
-    public  string NO_ADS = "NO_ADS";
+    public  string GOLD_50 = "gold_50";
+    public  string GOLD_100 = "gold_100";
+    public  string NO_ADS = "no_ads";
 
 
     void Start()
