@@ -128,7 +128,19 @@ public class UiFunctions : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("GameScene");
+        Debug.Log("Button Pressed");
+        gamePlaying = true;
+        scoreCounter.gameObject.SetActive(true);
+        //reset score on restart.
+        score = 0;
+        leaderboards.gameObject.SetActive(false);
+        tapToPlay.gameObject.SetActive(false);
+        highScore.gameObject.SetActive(false);
+        scoreCount.gameObject.SetActive(false);
+        socialMediaButton.gameObject.SetActive(false);
+        socialMediaCaption.gameObject.SetActive(false);
+       
+
     }
 
     public void GameEnded()

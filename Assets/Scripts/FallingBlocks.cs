@@ -55,6 +55,7 @@ public class FallingBlocks : MonoBehaviour
             StartCoroutine("GenerateBlocks");
         }
         
+
     }
 
     public IEnumerator GenerateBlocks()
